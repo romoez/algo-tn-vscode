@@ -82,13 +82,13 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 ### Snippets
 
-![Snippet_fonction](https://github.com/romoez/algo-tn-vscode/raw/main/images/snippets_fonction.png)
+![Snippet_fonction](https://github.com/romoez/algo-tn-vscode/raw/main/images/Snippet_fonction.png)
 
-![Snippet_boucle_pour](https://github.com/romoez/algo-tn-vscode/raw/main/images/snippets_pour.png)
+![Snippet_boucle_pour](https://github.com/romoez/algo-tn-vscode/raw/main/images/Snippet_boucle_pour.png)
 
-![Snippet_tdnt](https://github.com/romoez/algo-tn-vscode/raw/main/images/snippets_tdnt.png)
+![Snippet_tdnt](https://github.com/romoez/algo-tn-vscode/raw/main/images/Snippet_tdnt.png)
 
-![Snippet_tdo_3_lignes](https://github.com/romoez/algo-tn-vscode/raw/main/images/snippets_tdo3.png)
+![Snippet_tdo_3_lignes](https://github.com/romoez/algo-tn-vscode/raw/main/images/Snippet_tdo_3_lignes.png)
 
 ## Notes de version
 
