@@ -1,0 +1,331 @@
+{
+	"algorithme":{
+		"prefix": ["algorithme"],
+		"body": ["algorithme ${1:nom}","début","\t$0","fin"],
+		"description":"algorithme"
+	},
+	"fonction (définition)":{
+		"prefix": ["fonction"],
+		"body": ["fonction ${1:nom}(${2:paramètres_formels}) : ${3|entier,chaîne,réel  ,booléen,caractère|}","début","\t$0","fin"],
+		"description":"fonction (définition)"
+	},
+	"procédure (définition)":{
+		"prefix": ["procédure"],
+		"body": ["procédure ${1:nom}(${2:paramètres_formels})","début","\t$0","fin"],
+		"description":"procédure (définition)"
+	},
+	"tdo: 1 ligne":{
+		"prefix": "tdo",
+		"body": ["+-------------------------+-------------------+",
+				 "|          Objet          |   Nature / Type   |",
+				 "+-------------------------+-------------------+",
+				 "| ${1:x}                       | ${2|entier,chaîne,réel  ,booléen,caractère|}            |",
+				 "+-------------------------+-------------------+",""],
+		"description":"tdo: 1 ligne"
+	},
+	"tdo: 3 lignes":{
+		"prefix": "tdo3",
+		"body": ["+-------------------------+-------------------+",
+				 "|          Objet          |   Nature / Type   |",
+				 "+-------------------------+-------------------+",
+				 "| ${1:x}                       | ${2|entier,chaîne,réel  ,booléen,caractère|}            |",
+				 "+-------------------------+-------------------+",
+				 "| ${3:y}                       | ${4|entier,chaîne,réel  ,booléen,caractère|}            |",
+				 "+-------------------------+-------------------+",
+				 "| ${5:z}                       | ${6|entier,chaîne,réel  ,booléen,caractère|}            |",
+				 "+-------------------------+-------------------+",""],
+		"description":"tdo: 3 lignes"
+	},
+	"nouveau type: tableau":{
+		"prefix": ["tdnt-tableau", "type"],
+		"body": ["+---------------------------------------------+",
+				 "|               Nouveaux Types                |",
+				 "+---------------------------------------------+",
+				 "| ${1:eleves} = tableau de ${2:20} ${3|entier,chaîne,réel  ,booléen,caractère|}               |",
+				 "+---------------------------------------------+",""],
+		"description":"déclaration des nouveaux types"
+	},
+	"nouveau type: enregistrement":{
+		"prefix": ["tdnt-enregistrement", "type-enregistrement", "enregistrement"],
+		"body": ["+---------------------------------------------+",
+				 "|               Nouveaux Types                |",
+				 "+---------------------------------------------+",
+				 "| ${1:eleve} = enregistrement                      |",
+				 "|     ${2:nom} : ${3|chaîne,entier,réel  ,booléen,caractère|}                            |",
+				 "|     ${4:age} : ${5|entier,chaîne,réel  ,booléen,caractère|}                            |",
+				 "| fin                                         |",
+				 "+---------------------------------------------+",""],
+		"description":"nouveaux types: enregistrement"
+	},
+	"boucle pour":{
+		"prefix": "pour",
+		"body": ["pour ${1:i} de ${2:0} à ${3|N-1, long(ch)|} faire","\t${4|T[i], ch[i]|}","fin_pour"],
+		"description":"boucle pour"
+	},
+	"si...alors":{
+		"prefix": "si-alors",
+		"body": ["si ${1:conditon} alors","\t$0","fin_si"],
+		"description":"si...alors"
+	},
+	"si...alors...sinon":{
+		"prefix": "si-sinon",
+		"body": ["si ${1:conditon} alors","\t$0","sinon","\t","fin_si"],
+		"description":"si...alors...sinon"
+	},
+	"boucle tant-que":{
+		"prefix": "tant-que",
+		"body": ["tant que ${1:condition} faire","\t$0","fin_tant_que"],
+		"description":"boucle tant que"
+	},
+	"boucle répéter":{
+		"prefix": ["répéter"],
+		"body": ["répéter","\t$0","jusqu'à  ${1:condition}"],
+		"description":"boucle répéter"
+	},
+	"autres":{
+		"prefix":"autres",
+		"body":["autres $0"]
+	},
+	"de":{
+		"prefix":"de",
+		"body":["de $0"]
+	},
+	"début":{
+		"prefix":"début",
+		"body":["début $0"]
+	},
+	"faire":{
+		"prefix":"faire",
+		"body":["faire $0"]
+	},
+	"fin":{
+		"prefix":"fin",
+		"body":["fin $0"]
+	},
+	"fin_pour":{
+		"prefix":"fin_pour",
+		"body":["fin_pour $0"]
+	},
+	"fin_selon":{
+		"prefix":"fin_selon",
+		"body":["fin_selon $0"]
+	},
+	"fin_si":{
+		"prefix":"fin_si",
+		"body":["fin_si $0"]
+	},
+	"fin_tant_que":{
+		"prefix":"fin_tant_que",
+		"body":["fin_tant_que $0"]
+	},
+	"jusqu'à":{
+		"prefix":"jusqu'à",
+		"body":["jusqu'à $0"]
+	},
+	"pas":{
+		"prefix":"pas",
+		"body":["pas $0"]
+	},
+	"retourner":{
+		"prefix":"retourner",
+		"body":["retourner $0"]
+	},
+	"sinon":{
+		"prefix":"sinon",
+		"body":["sinon $0"]
+	},
+	"fonction aléa()":{
+		"prefix":"aléa",
+		"body":["aléa(${1:vi}, ${2:vf}) $0"],
+		"description":"fonction aléa()"
+	},
+	"fonction arrondi()":{
+		"prefix":"arrondi",
+		"body":["arrondi(${1:un_réel}) $0"],
+		"description":"fonction arrondi()"
+	},
+	"fonction chr()":{
+		"prefix":"chr",
+		"body":["chr(${1:code_ascii}) $0"],
+		"description":"fonction chr()"
+	},
+	"fonction convch()":{
+		"prefix":"convch",
+		"body":["convch(${1:nombre}) $0"],
+		"description":"fonction convch()"
+	},
+	"fonction effacer()":{
+		"prefix":"effacer",
+		"body":["effacer(${1:une_chaîne}, ${2:d}, ${3:f_exclue}) $0"],
+		"description":"fonction effacer()"
+	},
+	"fonction ent()":{
+		"prefix":"ent",
+		"body":["ent(${1:un_réel}) $0"],
+		"description":"fonction ent()"
+	},
+	"fonction estnum()":{
+		"prefix":"estnum",
+		"body":["estnum(${1:une_chaîne}) $0"],
+		"description":"fonction estnum()"
+	},
+	"procédure fermer()":{
+		"prefix":"fermer",
+		"body":["fermer(${1:un_fichier}) $0"],
+		"description":"procédure fermer()"
+	},
+	"fonction fin_fichier()":{
+		"prefix":"fin_fichier",
+		"body":["fin_fichier(${1:un_fichier}) $0"],
+		"description":"fonction fin_fichier()"
+	},
+	"procédure lire()":{
+		"prefix":"lire",
+		"body":["lire(${1:une_var}) $0"],
+		"description":"procédure lire()"
+	},
+	"procédure lire_ligne()":{
+		"prefix":"lire_ligne",
+		"body":["lire_ligne(${1:un_fichier}, ${2:une_var}) $0"],
+		"description":"procédure lire_ligne()"
+	},
+	"fonction long()":{
+		"prefix":"long",
+		"body":["long(${1:une_chaîne}) $0"],
+		"description":"fonction long()"
+	},
+	"fonction majus()":{
+		"prefix":"majus",
+		"body":["majus(${1:une_chaîne}) $0"],
+		"description":"fonction majus()"
+	},
+	"fonction ord()":{
+		"prefix":"ord",
+		"body":["ord(${1:un_caractère}) $0"],
+		"description":"fonction ord()"
+	},
+	"procédure ouvrir()":{
+		"prefix":"ouvrir",
+		"body":["ouvrir(${1:chemin_fichier}, ${2:nom_var}, \"${3:r}\") $0"],
+		"description":"procédure ouvrir()"
+	},
+	"fonction pointer()":{
+		"prefix":"pointer",
+		"body":["pointer(${1:nom_fichier}, ${2:position}) $0"],
+		"description":"fonction pointer()"
+	},
+	"fonction pos()":{
+		"prefix":"pos",
+		"body":["pos(${1:ch1}, ${2:ch2}) $0"],
+		"description":"fonction pos()"
+	},
+	"fonction racine_carrée()":{
+		"prefix":"racine_carrée",
+		"body":["racine_carrée(${1:un_nombre}) $0"],
+		"description":"fonction racine_carrée()"
+	},
+	"fonction sous_chaîne()":{
+		"prefix":"sous_chaîne",
+		"body":["sous_chaîne(${1:une_chaîne}, ${2:d}, ${3:f_exclue}) $0"],
+		"description":"fonction sous_chaîne()"
+	},
+	"fonction taille_fichier()":{
+		"prefix":"taille_fichier",
+		"body":["taille_fichier(${1:nom_fichier}) $0"],
+		"description":"fonction taille_fichier()"
+	},
+	"fonction valeur()":{
+		"prefix":"valeur",
+		"body":["valeur(${1:une_chaîne}) $0"],
+		"description":"fonction valeur()"
+	},
+	"procédure écrire()":{
+		"prefix":"écrire",
+		"body":["écrire(${1:expression}) $0"],
+		"description":"procédure écrire()"
+	},
+	"type booléen":{
+		"prefix":"booléen",
+		"body":["booléen$0"]
+	},
+	"type caractère":{
+		"prefix":"caractère",
+		"body":["caractère$0"]
+	},
+	"type chaîne":{
+		"prefix":"chaîne",
+		"body":["chaîne$0"]
+	},
+	"type enregistrement":{
+		"prefix":"enregistrement",
+		"body":["enregistrement$0"]
+	},
+	"type entier":{
+		"prefix":"entier",
+		"body":["entier$0"]
+	},
+	"type fichier texte":{
+		"prefix":"fichier-texte",
+		"body":["fichier texte$0"]
+	},
+	"type fichier typé":{
+		"prefix":"fichier-typé",
+		"body":["fichier de ${1:entier}$0"]
+	},
+	"type réel":{
+		"prefix":"réel",
+		"body":["réel$0"]
+	},
+	"type tableau":{
+		"prefix":"tableau",
+		"body":["tableau de ${1:20} ${2:entier}$0"]
+	},
+	"type texte (fichier)":{
+		"prefix":"texte",
+		"body":["texte$0"]
+	},
+	"opérateur ≥":{
+		"prefix": ["sup-ou-eg",">="],
+		"body": ["≥ $0"],
+		"description":"opérateur ≥"
+	},
+	"opérateur ≤":{
+		"prefix": ["inf-ou-eg","<="],
+		"body": ["≤ $0"],
+		"description":"opérateur ≤"
+	},
+	"opérateur ≠":{
+		"prefix": ["différent", "!="],
+		"body": ["≠ $0"],
+		"description":"opérateur ≠"
+	},
+	"affectation (<--)":{
+		"prefix": ["reçoit", "affectation", "<--"],
+		"body": ["<-- $0"],
+		"description":"affectation (<--)"
+	},
+	"opérateur et":{
+		"prefix":"et",
+		"body":["et $0"]
+	},
+	"opérateur ouex":{
+		"prefix":"ouex",
+		"body":["ouex $0"]
+	},
+	"opérateur ou":{
+		"prefix":"ou",
+		"body":["ou $0"]
+	},
+	"opérateur non":{
+		"prefix":"non",
+		"body":["non $0"]
+	},
+	"faux":{
+		"prefix":"faux",
+		"body":["faux $0"]
+	},
+	"vrai":{
+		"prefix":"vrai",
+		"body":["vrai $0"]
+	}
+}

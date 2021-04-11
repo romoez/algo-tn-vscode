@@ -1,0 +1,36 @@
+{
+    "name": "algorithme-tn",
+    "displayName": "Algorithme-tn",
+    "description": "Pseudocode utilisé aux lycées en Tunisie",
+    "version": "0.0.1",
+	"icon": "images/icon.png",
+    "engines": {
+        "vscode": "^1.38.0"
+    },
+    "publisher": "Moez Romdhane",
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "algo",
+            "aliases": ["Algorithme en Pseudocode", "algo"],
+            "extensions": [".algo",".alg"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "algo",
+            "scopeName": "source.algo",
+            "path": "./syntaxes/algo.tmLanguage.json"
+        }],
+        "snippets": [{
+                "language": "algo",
+                "path": "./snippets/snippets.json"
+
+        }]
+    },
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/romoez/algo-tn-vscode.git"
+	}
+}

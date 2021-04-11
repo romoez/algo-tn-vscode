@@ -1,0 +1,44 @@
+{
+    "comments": {
+        // symbol used for single line comment. Remove this entry if your language does not support line comments
+        "lineComment": "//",
+        // symbols used for start and end a block comment. Remove this entry if your language does not support block comments
+        "blockComment": [ "/*", "*/" ]
+    },
+    // symbols used as brackets
+    "brackets": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        ["pour", "fin_pour"],
+        ["tant que", "fin_tant_que"],
+        ["si", "fin_si"],
+        ["selon", "fin_selon"],
+        ["début", "fin"]
+    ],
+    // symbols that are auto closed when typing
+    "autoClosingPairs": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        ["\"", "\""],
+        ["'", "'"],
+        {"open": "début", "close": "fin", "notIn": ["string", "comment"]}
+    ],
+    // symbols that that can be used to surround a selection
+    "surroundingPairs": [
+        ["{", "}"],
+        ["[", "]"],
+        ["(", ")"],
+        ["\"", "\""],
+        ["'", "'"],
+        ["début", "fin"]
+    ],
+
+    "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)(?<!begin)(?<!fin)(?<!débutfin)",
+
+    "indentationRules": {
+        "increaseIndentPattern": "^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*|début|répéter|faire|alors)$",
+        "decreaseIndentPattern": "^((?!.*?\\/\\*).*\\*/)?\\s*([\\}\\]]|fin|fin_pour|fin_selon|fin_si|fin_tant_que|jusqu'à|sinon).*$"
+    }
+}
