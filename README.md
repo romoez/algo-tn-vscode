@@ -1,65 +1,101 @@
-# algorithme-tn README
+# Algorithme en Pseudocode
 
-This is the README for your extension "algorithme-tn". After writing up a brief description, we recommend including the following sections.
+_Extension that provides syntax highlighting and snippets for pseudocode in French as it is written at high schools in Tunisia._
 
-## Features
+Une extension qui fournit la coloration syntaxique et des extraits de code (snippets) pour le pseudocode utilisé aux lycées en Tunisie.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+![Snippets](https://github.com/romoez/algo-tn-vscode/raw/main/images/snippets.gif)
 
-For example if there is an image subfolder under your extension project workspace:
+## Caractéristiques
 
-\!\[feature X\]\(images/feature-x.png\)
+### Coloration Syntaxique
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+#### Commentaires:
 
-## Requirements
+```javascript
+//double slash
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+/* block */
+```
 
-## Extension Settings
+#### Mots clés:
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+|            |                |            |
+| ---------- | -------------- | ---------- |
+| `alors`    | `fin_selon`    | `répéter`  |
+| `autres`   | `fin_si`       | `selon`    |
+| `de`       | `fin_tant_que` | `si`       |
+| `début`    | `jusqu'à`      | `sinon`    |
+| `faire`    | `pas`          | `tant que` |
+| `fin`      | `pour`         | `à`        |
+| `fin_pour` | `retourner`    |            |
 
-For example:
+#### Fonctions & Procédures:
 
-This extension contributes the following settings:
+|           |               |                  |
+| --------- | ------------- | ---------------- |
+| `aléa`    | `fin_fichier` | `pos`            |
+| `arrondi` | `lire`        | `racine_carrée`  |
+| `chr`     | `lire_ligne`  | `sous_chaîne`    |
+| `convch`  | `long`        | `taille_fichier` |
+| `effacer` | `majus`       | `valeur`         |
+| `ent`     | `ord`         | `écrire`         |
+| `estnum`  | `ouvrir`      |                  |
+| `fermer`  | `pointer`     |                  |
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+#### Types:
 
-## Known Issues
+|             |                  |           |
+| ----------- | ---------------- | --------- |
+| `booléen`   | `enregistrement` | `réel`    |
+| `caractère` | `entier`         | `tableau` |
+| `chaîne`    | `fichier`        | `texte`   |
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+#### Mots clés de déclaration:
 
-## Release Notes
+|              |
+| ------------ |
+| `algorithme` |
+| `fonction`   |
+| `procédure`  |
 
-Users appreciate release notes as you update your extension.
+#### Operateurs de comparaison:
 
-### 1.0.0
+|      |      |      |
+| ---- | ---- | ---- |
+| `<`  | `>=` | `=`  |
+| `>`  | `≥`  | `!=` |
+| `<=` | `≤`  | `≠`  |
 
-Initial release of ...
+#### Operateurs logiques:
 
-### 1.0.1
+|        |       |
+| ------ | ----- |
+| `et`   | `ou`  |
+| `ouex` | `non` |
 
-Fixed issue #.
+#### Constante:
 
-### 1.1.0
+|        |        |
+| ------ | ------ |
+| `vrai` | `faux` |
 
-Added features X, Y, and Z.
+### Snippets
 
------------------------------------------------------------------------------------------------------------
+![Snippet_fonction](https://github.com/romoez/algo-tn-vscode/raw/main/images/snippets_fonction.png)
 
-## Working with Markdown
+![Snippet_boucle_pour](https://github.com/romoez/algo-tn-vscode/raw/main/images/snippets_pour.png)
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+![Snippet_tdnt](https://github.com/romoez/algo-tn-vscode/raw/main/images/snippets_tdnt.png)
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
+![Snippet_tdo_3_lignes](https://github.com/romoez/algo-tn-vscode/raw/main/images/snippets_tdo3.png)
 
-### For more information
+## Notes de version
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+### 0.0.1
 
-**Enjoy!**
+- Version initiale avec coloration et snippets de la syntaxe de l'algorithme écrit en pseudocode.
+
+## Source
+
+[![Algorithme en Pseudocode](https://github.com/romoez/algo-tn-vscode/raw/main/images/icon.png)](https://github.com/romoez/algo-tn-vscode)
