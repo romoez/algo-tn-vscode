@@ -51,11 +51,11 @@
 			"patterns": [
 				{
 					"name": "keyword.control.flow.algo",
-					"match": "(?i)\\b(alors|autres|de|début|faire|fin|fin_pour|fin_selon|fin_si|fin_tant_que|jusqu'à|pas|pour|retourner|répéter|selon|si|sinon|tant que|à)\\b"
+					"match": "(?i)\\b(à|alors|autres|de|début|faire|fin|fin_pour|fin_selon|fin_si|fin_tant_que|jusqu'à|pas|pour|retourner|répéter|selon|si|sinon|tant que)\\b"
 				},
 				{
 					"name":"support.function.algo",
-					"match": "(?i)\\b(aléa|arrondi|chr|convch|effacer|ent|estnum|fermer|fin_fichier|lire|lire_ligne|long|majus|ord|ouvrir|pointer|pos|racine_carrée|sous_chaîne|taille_fichier|valeur|écrire)\\b"
+					"match": "(?i)\\b(aléa|arrondi|chr|convch|écrire|effacer|ent|estnum|fermer|fin_fichier|lire|lire_ligne|long|majus|ord|ouvrir|pointer|pos|racine_carrée|sous_chaîne|taille_fichier|valeur)\\b"
 				},
 				{
 					"name":"entity.name.type.algo",
@@ -100,7 +100,7 @@
 					"name": "keyword.operator.assignment.algo"
 				},
 				{
-					"match": "(<|>|<=|>=|≥|≤|=|!=|≠)",
+					"match": "(<|>|≥|≤|=|≠)",
 					"name": "keyword.operator.comparison.algo"
 				},
 				{

@@ -1,10 +1,12 @@
 # Algorithme en Pseudocode
 
-_Extension that provides syntax highlighting and snippets for pseudocode in French as it is written at high schools in Tunisia._
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/moez-romdhane.algorithme-tn)](https://marketplace.visualstudio.com/items?itemName=moez-romdhane.algorithme-tn)
+
+_Extension that provides syntax highlighting and snippets for pseudocode in French as it is written at high school in Tunisia._
 
 Une extension qui fournit la coloration syntaxique et des extraits de code (snippets) pour le pseudocode utilisé aux lycées en Tunisie.
 
-![Snippets](https://github.com/romoez/algo-tn-vscode/raw/main/images/snippets.gif)
+![Snippets](https://github.com/romoez/algo-tn-vscode/raw/main/images/algorithme-tn.gif)
 
 ## Caractéristiques
 
@@ -20,36 +22,34 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 #### Mots clés:
 
-|            |                |            |
-| ---------- | -------------- | ---------- |
-| `alors`    | `fin_selon`    | `répéter`  |
-| `autres`   | `fin_si`       | `selon`    |
-| `de`       | `fin_tant_que` | `si`       |
-| `début`    | `jusqu'à`      | `sinon`    |
-| `faire`    | `pas`          | `tant que` |
-| `fin`      | `pour`         | `à`        |
-| `fin_pour` | `retourner`    |            |
+|             |          |                |            |
+| ----------- | -------- | -------------- | ---------- |
+| `à`         | `alors`  | `autres`       | `de`       |
+| `début`     | `faire`  | `fin`          | `fin_pour` |
+| `fin_selon` | `fin_si` | `fin_tant_que` | `jusqu'à`  |
+| `pas`       | `pour`   | `retourner`    | `répéter`  |
+| `selon`     | `si`     | `sinon`        | `tant que` |
 
 #### Fonctions & Procédures:
 
-|           |               |                  |
-| --------- | ------------- | ---------------- |
-| `aléa`    | `fin_fichier` | `pos`            |
-| `arrondi` | `lire`        | `racine_carrée`  |
-| `chr`     | `lire_ligne`  | `sous_chaîne`    |
-| `convch`  | `long`        | `taille_fichier` |
-| `effacer` | `majus`       | `valeur`         |
-| `ent`     | `ord`         | `écrire`         |
-| `estnum`  | `ouvrir`      |                  |
-| `fermer`  | `pointer`     |                  |
+|                 |               |                  |
+| --------------- | ------------- | ---------------- |
+| `aléa`          | `arrondi`     | `chr`            |
+| `convch`        | `écrire`      | `effacer`        |
+| `ent`           | `estnum`      | `fermer`         |
+| `fin_fichier`   | `lire`        | `lire_ligne`     |
+| `long`          | `majus`       | `ord`            |
+| `ouvrir`        | `pointer`     | `pos`            |
+| `racine_carrée` | `sous_chaîne` | `taille_fichier` |
+| `valeur`        |               |                  |
 
 #### Types:
 
-|             |                  |           |
-| ----------- | ---------------- | --------- |
-| `booléen`   | `enregistrement` | `réel`    |
-| `caractère` | `entier`         | `tableau` |
-| `chaîne`    | `fichier`        | `texte`   |
+|                  |             |           |
+| ---------------- | ----------- | --------- |
+| `booléen`        | `caractère` | `chaîne`  |
+| `enregistrement` | `entier`    | `fichier` |
+| `réel`           | `tableau`   | `texte`   |
 
 #### Mots clés de déclaration:
 
@@ -61,11 +61,11 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 #### Operateurs de comparaison:
 
-|      |      |      |
-| ---- | ---- | ---- |
-| `<`  | `>=` | `=`  |
-| `>`  | `≥`  | `!=` |
-| `<=` | `≤`  | `≠`  |
+|     |     |
+| --- | --- |
+| `<` | `≤` |
+| `>` | `≥` |
+| `=` | `≠` |
 
 #### Operateurs logiques:
 
@@ -82,20 +82,32 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 ### Snippets
 
-![Snippet_fonction](https://github.com/romoez/algo-tn-vscode/raw/main/images/Snippet_fonction.png)
+- Autocomplétion des mots réservés et des fonctions/procédures prdéfinies.
+- Autocomplétion de toutes les structures de contrôle.
+- Autocomplétion des opérateurs de comparaison:
 
-![Snippet_boucle_pour](https://github.com/romoez/algo-tn-vscode/raw/main/images/Snippet_boucle_pour.png)
+| Déclencheur | Opérateur |
+| ----------- | --------- |
+| `>=`        | `≤`       |
+| `<=`        | `≥`       |
+| `!=`        | `≠`       |
 
-![Snippet_tdnt](https://github.com/romoez/algo-tn-vscode/raw/main/images/Snippet_tdnt.png)
+#### x-snippets:
 
-![Snippet_tdo_3_lignes](https://github.com/romoez/algo-tn-vscode/raw/main/images/Snippet_tdo_3_lignes.png)
+![x-snippets](https://github.com/romoez/algo-tn-vscode/raw/main/images/x-snippets.gif)
 
 ## Notes de version
 
+### 0.0.2
+
+- x-snippet: x-saisir-N: Saisie contrôlée d'un nombre
+- x-snippet: x-remp-tab: Remplissage contrôlé d'un tableau à une dimension
+- x-snippet: x-remp-mat-carrée: Remplissage contrôlé d'une matrice carrée
+- x-snippet: x-remp-mat: Remplissage contrôlé d'une matrice
+- x-snippet: x-tri-bul: tri à bulles (v.1)
+- x-snippet: x-tri-sél: tri par sélection (v.1)
+- x-snippet: x-tri-ins: tri par insertion (v.1)
+
 ### 0.0.1
 
-- Version initiale avec coloration et snippets de la syntaxe de l'algorithme écrit en pseudocode.
-
-## Source
-
-[![Algorithme en Pseudocode](https://github.com/romoez/algo-tn-vscode/raw/main/images/icon.png)](https://github.com/romoez/algo-tn-vscode)
+- Version initiale avec coloration et snippets de la syntaxe du pseudocode utilisé pour écrire les algorithmes.
