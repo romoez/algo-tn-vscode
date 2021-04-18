@@ -39,7 +39,7 @@
     "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)|((\\<\\-?\\-?)|(\\<\\=?)|(\\>\\=?)|(!\\=?))",
 
     "indentationRules": {
-        "increaseIndentPattern": "^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*|début|répéter|faire|alors)$",
+        "increaseIndentPattern": "^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*|début|répéter|faire|alors|sinon)$",
         "decreaseIndentPattern": "^((?!.*?\\/\\*).*\\*/)?\\s*([\\}\\]]|fin|fin_pour|fin_selon|fin_si|fin_tant_que|jusqu'à|sinon).*$"
     }
 }
