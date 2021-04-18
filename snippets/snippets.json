@@ -15,47 +15,53 @@
 		"description":"procédure (définition)"
 	},
 	"tdo: 1 ligne":{
-		"prefix": "tdo",
-		"body": ["+-------------------------+-------------------+",
-				 "|          Objet          |   Nature / Type   |",
-				 "+-------------------------+-------------------+",
-				 "| ${1:x}                       | ${2|entier,chaîne,réel  ,booléen,caractère|}            |",
-				 "+-------------------------+-------------------+",""],
+		"prefix": "tdo-1",
+		"body": ["┌─────────────────────────┬───────────────────┐",
+			"│          Objet          │   Nature / Type   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ ${1:x}                       │ ${2|entier,chaîne,réel  ,booléen,caractère,fonction,procédure|}            │",
+			"└─────────────────────────┴───────────────────┘",
+			""],
 		"description":"tdo: 1 ligne"
 	},
 	"tdo: 3 lignes":{
-		"prefix": "tdo3",
-		"body": ["+-------------------------+-------------------+",
-				 "|          Objet          |   Nature / Type   |",
-				 "+-------------------------+-------------------+",
-				 "| ${1:x}                       | ${2|entier,chaîne,réel  ,booléen,caractère|}            |",
-				 "+-------------------------+-------------------+",
-				 "| ${3:y}                       | ${4|entier,chaîne,réel  ,booléen,caractère|}            |",
-				 "+-------------------------+-------------------+",
-				 "| ${5:z}                       | ${6|entier,chaîne,réel  ,booléen,caractère|}            |",
-				 "+-------------------------+-------------------+",""],
+		"prefix": "tdo-3",
+		"body": ["┌─────────────────────────┬───────────────────┐",
+			"│          Objet          │   Nature / Type   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ ${1:x}                       │ ${2|entier,chaîne,réel  ,booléen,caractère,fonction,procédure|}            │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ ${3:y}                       │ ${4|entier,chaîne,réel  ,booléen,caractère,fonction,procédure|}            │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ ${5:z}                       │ ${6|entier,chaîne,réel  ,booléen,caractère,fonction,procédure|}            │",
+			"└─────────────────────────┴───────────────────┘",
+			""],
 		"description":"tdo: 3 lignes"
 	},
 	"nouveau type: tableau":{
-		"prefix": ["tdnt-tableau", "type"],
-		"body": ["+---------------------------------------------+",
-				 "|               Nouveaux Types                |",
-				 "+---------------------------------------------+",
-				 "| ${1:eleves} = tableau de ${2:20} ${3|entier,chaîne,réel  ,booléen,caractère|}               |",
-				 "+---------------------------------------------+",""],
+		"prefix": ["tdnt-1"],
+		"body": ["┌─────────────────────────────────────────────┐",
+			"│               Nouveaux Types                │",
+			"├─────────────────────────────────────────────┤",
+			"│ ${1:eleves} = tableau de ${2:20} ${3|entier,chaîne,réel  ,booléen,caractère|}               │",
+			"└─────────────────────────────────────────────┘",
+			""],
 		"description":"déclaration des nouveaux types"
 	},
-	"nouveau type: enregistrement":{
-		"prefix": ["tdnt-enregistrement", "type-enregistrement", "enregistrement"],
-		"body": ["+---------------------------------------------+",
-				 "|               Nouveaux Types                |",
-				 "+---------------------------------------------+",
-				 "| ${1:eleve} = enregistrement                      |",
-				 "|     ${2:nom} : ${3|chaîne,entier,réel  ,booléen,caractère|}                            |",
-				 "|     ${4:age} : ${5|entier,chaîne,réel  ,booléen,caractère|}                            |",
-				 "| fin                                         |",
-				 "+---------------------------------------------+",""],
-		"description":"nouveaux types: enregistrement"
+	"nouveaux types: 2en1":{
+		"prefix": ["tdnt-2"],
+		"body": ["┌─────────────────────────────────────────────┐",
+			"│               Nouveaux Types                │",
+			"├─────────────────────────────────────────────┤",
+			"│ ${1:eleve} = enregistrement                      │",
+			"│     ${2:nom} : ${3|chaîne,entier,réel  ,booléen,caractère|}                            │",
+			"│     ${4:age} : ${5|entier,chaîne,réel  ,booléen,caractère|}                            │",
+			"│ fin                                         │",
+			"├─────────────────────────────────────────────┤",
+			"│ ${6:eleves} = tableau de ${7:20} ${8|entier,chaîne,réel  ,booléen,caractère|}               │",
+			"└─────────────────────────────────────────────┘",
+			""],
+		"description":"nouveaux types: enregistrement + tableau"
 	},
 	"boucle pour":{
 		"prefix": "pour",
@@ -82,10 +88,6 @@
 		"body": ["répéter","\t$0","jusqu'à  ${1:condition}"],
 		"description":"boucle répéter"
 	},
-	"autres":{
-		"prefix":"autres",
-		"body":["autres $0"]
-	},
 	"de":{
 		"prefix":"de",
 		"body":["de $0"]
@@ -105,10 +107,6 @@
 	"fin_pour":{
 		"prefix":"fin_pour",
 		"body":["fin_pour $0"]
-	},
-	"fin_selon":{
-		"prefix":"fin_selon",
-		"body":["fin_selon $0"]
 	},
 	"fin_si":{
 		"prefix":"fin_si",
@@ -336,7 +334,7 @@
 		"prefix":"vrai",
 		"body":["vrai $0"]
 	},
-	"Saisie d'un nombre":{
+	"saisie d'un nombre":{
 		"prefix": ["x-saisir-N"],
 		"body": ["procédure ${1:saisie_nb_eleves}(@${2:N}: entier)",
 			"début",
@@ -346,9 +344,9 @@
 			"\tjusqu'à  ${6:${2:N} ≥ ${4:5} et ${2:N} ≤ ${5:20}}",
 			"fin",
 			""],			
-		"description":"Saisie contrôlée d'un nombre"
+		"description":"(proc) saisie contrôlée d'un nombre"
 	},
-	"Remplissage d'un tableau":{
+	"remplissage d'un tableau":{
 		"prefix": ["x-remp-tab"],
 		"body": ["procédure ${1:saisie_des_noms}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
 			"début",
@@ -360,15 +358,15 @@
 			"\tfin_pour",
 			"fin",
 			"",
-			"+-------------------------+-------------------+",
-			"|          Objet          |   Nature / Type   |",
-			"+-------------------------+-------------------+",
-			"| i                       | entier            |",
-			"+-------------------------+-------------------+",
+			"┌─────────────────────────┬───────────────────┐",
+			"│          Objet          │   Nature / Type   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ i                       │ entier            │",
+			"└─────────────────────────┴───────────────────┘",
 			""],			
-		"description":"Remplissage contrôlé d'un tableau à une dimension"
+		"description":"(proc) remplissage contrôlé d'un tableau à une dimension"
 	},
-	"Remplissage d'une matrice carrée":{
+	"remplissage d'une matrice carrée":{
 		"prefix": ["x-remp-mat-carrée"],
 		"body": ["procédure ${1:remplissage_mat}(@${2:T}: ${3:tableau_2d}, ${4:N}:entier)",
 			"début",
@@ -382,15 +380,15 @@
 			"\tfin_pour",
 			"fin",
 			"",
-			"+-------------------------+-------------------+",
-			"|          Objet          |   Nature / Type   |",
-			"+-------------------------+-------------------+",
-			"| i, j                    | entier            |",
-			"+-------------------------+-------------------+",
+			"┌─────────────────────────┬───────────────────┐",
+			"│          Objet          │   Nature / Type   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ i, j                    │ entier            │",
+			"└─────────────────────────┴───────────────────┘",
 			""],			
-		"description":"Remplissage contrôlé d'une matrice carrée"
+		"description":"(proc) remplissage contrôlé d'une matrice carrée"
 	},
-	"Remplissage d'une matrice":{
+	"remplissage d'une matrice":{
 		"prefix": ["x-remp-mat"],
 		"body": ["procédure ${1:remplissage_mat}(@${2:T}: ${3:tableau_2d}, ${4:nb_lignes}, ${5:nb_colonnes} :entier)",
 			"début",
@@ -404,13 +402,13 @@
 			"\tfin_pour",
 			"fin",
 			"",
-			"+-------------------------+-------------------+",
-			"|          Objet          |   Nature / Type   |",
-			"+-------------------------+-------------------+",
-			"| i, j                    | entier            |",
-			"+-------------------------+-------------------+",
+			"┌─────────────────────────┬───────────────────┐",
+			"│          Objet          │   Nature / Type   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ i, j                    │ entier            │",
+			"└─────────────────────────┴───────────────────┘",
 			""],			
-		"description":"Remplissage contrôlé d'une matrice"
+		"description":"(proc) remplissage contrôlé d'une matrice"
 	},
 	"tri à bulles (v.1)":{
 		"prefix": ["x-tri-bul-1"],
@@ -430,16 +428,16 @@
 			"\tjusqu'à  pos_dernière_permutation ≤ 1",
 			"fin",
 			"",
-			"+-------------------------+-------------------+",
-			"|          Objet          |   Nature / Type   |",
-			"+-------------------------+-------------------+",
-			"| i                       | entier            |",
-			"| pos_dernière_permutation|                   |",
-			"+-------------------------+-------------------+",
-			"| ${6:kes}                     | ${7|entier,chaîne,réel  ,booléen,caractère|}            |",
-			"+-------------------------+-------------------+",
+			"┌─────────────────────────┬───────────────────┐",
+			"│          Objet          │   Nature / Type   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ i                       │ entier            │",
+			"│ pos_dernière_permutation│                   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ ${6:kes}                     │ ${7|entier,chaîne,réel  ,booléen,caractère|}            │",
+			"└─────────────────────────┴───────────────────┘",
 			""],			
-		"description":"tri à bulles (v.1)"
+		"description":"(proc) tri à bulles (v.1)"
 	},
 	"tri par sélection (v.1)":{
 		"prefix": ["x-tri-sél-1"],
@@ -464,15 +462,15 @@
 			"\tfin_pour",
 			"fin",
 			"",
-			"+-------------------------+-------------------+",
-			"|          Objet          |   Nature / Type   |",
-			"+-------------------------+-------------------+",
-			"| i, j, pos_${5|min,max|}           | entier            |",
-			"+-------------------------+-------------------+",
-			"| ${7:kes}                     | ${8|entier,chaîne,réel  ,booléen,caractère|}            |",
-			"+-------------------------+-------------------+",
+			"┌─────────────────────────┬───────────────────┐",
+			"│          Objet          │   Nature / Type   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ i, j, pos_${5|min,max|}           │ entier            │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ ${6:kes}                     │ ${7|entier,chaîne,réel  ,booléen,caractère|}            │",
+			"└─────────────────────────┴───────────────────┘",
 			""],			
-		"description":"tri par sélection (v.1)"
+		"description":"(proc) tri par sélection (v.1)"
 	},
 	"tri par insertion (v.1)":{
 		"prefix": ["x-tri-ins-1"],
@@ -494,15 +492,41 @@
 			"\tfin_pour",
 			"fin",
 			"",
-			"+-------------------------+-------------------+",
-			"|          Objet          |   Nature / Type   |",
-			"+-------------------------+-------------------+",
-			"| i                       | entier            |",
-			"| ${6:pos_case_libre}          |                   |",
-			"+-------------------------+-------------------+",
-			"| ${5:valeur_à_insérer}        | ${8|entier,chaîne,réel  ,booléen,caractère|}            |",
-			"+-------------------------+-------------------+",
+			"┌─────────────────────────┬───────────────────┐",
+			"│          Objet          │   Nature / Type   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ i                       │ entier            │",
+			"│ ${6:pos_case_libre}          │                   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ ${5:valeur_à_insérer}        │ ${8|entier,chaîne,réel  ,booléen,caractère|}            │",
+			"└─────────────────────────┴───────────────────┘",
 			""],			
-		"description":"tri par insertion (v.1)"
+		"description":"(proc) tri par insertion (v.1)"
+	},
+	"chaîne alphabétique (v.1)":{
+		"prefix": ["x-alpha-1"],
+		"body": ["fonction ${1:est_alphabetique}(${2:ch}: chaîne) : booléen",
+			"début",
+			"\t${2:ch} <-- majus(${2:ch})",
+			"\ti <-- 0",
+			"\ttant que (i < long(${2:ch})) et (${2:ch}[i] ≥ \"A\") et (${2:ch}[i] ≤ \"Z\") faire",
+			"\t\ti <-- i + 1",
+			"\tfin_tant_que",
+			"\t",
+			"\tsi i < long(${2:ch}) alors",
+			"\t\tretourner faux",
+			"\tsinon ",
+			"\t\tretourner vrai",
+			"\tfin_si",
+			"\t// retourner i = long(${2:ch})",
+			"fin",
+			"",
+			"┌─────────────────────────┬───────────────────┐",
+			"│          Objet          │   Nature / Type   │",
+			"├─────────────────────────┼───────────────────┤",
+			"│ i                       │ entier            │",
+			"└─────────────────────────┴───────────────────┘",
+			""],			
+		"description":"(fn) vérif. si une chaîne est composée uniquement par des lettres alphabétiques (v.1)"
 	}
 }
