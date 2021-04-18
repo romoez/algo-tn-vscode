@@ -12,7 +12,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 ### Coloration Syntaxique
 
-#### Commentaires:
+#### Commentaires
 
 ```javascript
 //double slash
@@ -20,7 +20,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 /* block */
 ```
 
-#### Mots clés:
+#### Mots clés
 
 |             |          |                |            |
 | ----------- | -------- | -------------- | ---------- |
@@ -30,7 +30,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 | `pas`       | `pour`   | `retourner`    | `répéter`  |
 | `selon`     | `si`     | `sinon`        | `tant que` |
 
-#### Fonctions & Procédures:
+#### Fonctions & Procédures prédéfinies
 
 |                 |               |                  |
 | --------------- | ------------- | ---------------- |
@@ -43,7 +43,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 | `racine_carrée` | `sous_chaîne` | `taille_fichier` |
 | `valeur`        |               |                  |
 
-#### Types:
+#### Types
 
 |                  |             |           |
 | ---------------- | ----------- | --------- |
@@ -51,7 +51,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 | `enregistrement` | `entier`    | `fichier` |
 | `réel`           | `tableau`   | `texte`   |
 
-#### Mots clés de déclaration:
+#### Mots clés de déclaration
 
 |              |
 | ------------ |
@@ -59,7 +59,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 | `fonction`   |
 | `procédure`  |
 
-#### Operateurs de comparaison:
+#### Opérateurs de comparaison
 
 |     |     |
 | --- | --- |
@@ -67,14 +67,14 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 | `>` | `≥` |
 | `=` | `≠` |
 
-#### Operateurs logiques:
+#### Opérateurs logiques
 
 |        |       |
 | ------ | ----- |
 | `et`   | `ou`  |
 | `ouex` | `non` |
 
-#### Constante:
+#### Constantes
 
 |        |        |
 | ------ | ------ |
@@ -92,7 +92,43 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 | `<=`        | `≥`       |
 | `!=`        | `≠`       |
 
-#### x-snippets:
+- `tdo-1` (une ligne) et `tdo-3` (3 lignes)
+
+```
+┌─────────────────────────┬───────────────────┐
+│          Objet          │   Nature / Type   │
+├─────────────────────────┼───────────────────┤
+│ x                       │ entier            │
+└─────────────────────────┴───────────────────┘
+```
+
+- `tdnt-1` (type tableau) `tdnt-2` (2 types: enregistrement & tableau)
+
+```
+┌─────────────────────────────────────────────┐
+│               Nouveaux Types                │
+├─────────────────────────────────────────────┤
+│ eleve = enregistrement                      │
+│     nom : chaîne                            │
+│     age : entier                            │
+│ fin                                         │
+├─────────────────────────────────────────────┤
+│ eleves = tableau de 20 entier               │
+└─────────────────────────────────────────────┘
+```
+
+- x-snippets
+
+| Déclencheur         | eXtrait de code                                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------------------------- |
+| `x-saisir-n`        | Procédure qui permet la saisie controlée d'un nombre                                                    |
+| `x-remp-tab`        | Procédure qui remplit un tableau à une dimension                                                        |
+| `x-remp-mat-carrée` | Procédure qui remplit une matrice carrée                                                                |
+| `x-remp-mat`        | Procédure qui remplit une matrice                                                                       |
+| `x-tri-bul-1`       | Procédure qui met en ordre les éléments d'un tableau en utilisant la méthode de tri à bulles (v.1)      |
+| `x-tri-sél-1`       | Procédure qui met en ordre les éléments d'un tableau en utilisant la méthode de tri par sélection (v.1) |
+| `x-tri-ins-1`       | Procédure qui met en ordre les éléments d'un tableau en utilisant la méthode de tri par insertion (v.1) |
+| `x-alpha-1`         | Fonction qui vérifie si une chaîne est composée uniquement par des lettres alphabétiques (v.1)          |
 
 ![x-snippets](https://github.com/romoez/algo-tn-vscode/raw/main/images/x-snippets.gif)
 
@@ -100,13 +136,13 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 ### 0.0.2
 
-- x-snippet: x-saisir-N: Saisie contrôlée d'un nombre
+- x-snippet: x-saisir-n: Saisie contrôlée d'un nombre
 - x-snippet: x-remp-tab: Remplissage contrôlé d'un tableau à une dimension
 - x-snippet: x-remp-mat-carrée: Remplissage contrôlé d'une matrice carrée
 - x-snippet: x-remp-mat: Remplissage contrôlé d'une matrice
-- x-snippet: x-tri-bul: tri à bulles (v.1)
-- x-snippet: x-tri-sél: tri par sélection (v.1)
-- x-snippet: x-tri-ins: tri par insertion (v.1)
+- x-snippet: x-tri-bul-1: tri à bulles (v.1)
+- x-snippet: x-tri-sél-1: tri par sélection (v.1)
+- x-snippet: x-tri-ins-1: tri par insertion (v.1)
 
 ### 0.0.1
 
