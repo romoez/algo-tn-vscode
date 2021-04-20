@@ -181,43 +181,6 @@
 				{
 					"name": "constant.character.escape.algo",
 					"match": "\\\\."
-				},
-				{
-					"name": "string.template.algo",
-					"begin": "(\\$\\{)((.*?))(?=\\})",
-					"end": "(\\})",	
-					"beginCaptures": {
-						"1": {
-							"name": "punctuation.definition.template-expression.begin.algo"
-						},
-						"2": {
-							"name": "meta.template.expression.algo"
-						},
-						"3": {
-							"name": "meta.embedded.line.algo",
-							"patterns": [
-								{ "include": "#meta" },
-								{ "include": "#entities" },
-								{ "include": "#variables" },
-								{ "include": "#strings" },
-								{ "include": "#numbers" },
-								{ "include": "#punctuation" }
-							]
-						}
-					},
-					"endCaptures": {
-						"1": {
-							"name": "punctuation.definition.template-expression.end.algo"
-						}
-					},
-					"patterns": [
-						{ "include": "#meta" },
-						{ "include": "#entities" },
-						{ "include": "#variables" },
-						{ "include": "#strings" },
-						{ "include": "#numbers" },
-						{ "include": "#punctuation" }
-					]
 				}
 			]
 		},
