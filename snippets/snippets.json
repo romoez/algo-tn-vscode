@@ -630,5 +630,32 @@
 			"└─────────────────────────────┴───────────────────┘",
 			""],			
 		"description":"(fn) vérif. si une chaîne est composée uniquement par des lettres alphabétiques (v.2)"
+	},
+	"chaîne numérique":{
+		"prefix": ["x-num"],
+		"body": ["fonction ${1:est_numérique}(${2:ch}: chaîne) : booléen",
+		"début",
+		"\tnb_chiffres <-- 0",
+		"\tpour i de 0 à long(${2:ch}) - 1 faire",
+		"\t\tsi (${2:ch}[i] ≥ \"0\") et (${2:ch}[i] ≤ \"9\")  alors",
+		"\t\t\tnb_chiffres <-- nb_chiffres + 1",
+		"\t\tfin_si",
+		"\tfin_pour",
+		"",
+		"\tsi nb_chiffres = long(${2:ch}) alors",
+		"\t\tretourner vrai",
+		"\tsinon",
+		"\t\tretourner faux",
+		"\tfin_si ",
+		"\t// retourner nb_chiffres = long(${2:ch}) ",
+		"fin",
+		"",
+		"┌─────────────────────────────┬───────────────────┐",
+		"│            Objet            │   Nature / Type   │",
+		"├─────────────────────────────┼───────────────────┤",
+		"│ i, nb_chiffres              │ entier            │",
+		"└─────────────────────────────┴───────────────────┘",
+		""],			
+		"description":"(fn) vérif. si une chaîne est composée uniquement par des chiffres"
 	}
 }
