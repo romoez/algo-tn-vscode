@@ -326,6 +326,14 @@
 		"prefix":"non",
 		"body":["non $0"]
 	},
+	"opérateur div":{
+		"prefix":"div",
+		"body":["div $0"]
+	},
+	"opérateur mod":{
+		"prefix":"mod",
+		"body":["mod $0"]
+	},
 	"faux":{
 		"prefix":"faux",
 		"body":["faux $0"]
@@ -334,7 +342,7 @@
 		"prefix":"vrai",
 		"body":["vrai $0"]
 	},
-	"saisie d'un nombre":{
+	"saisie contrôlée d'un nombre":{
 		"prefix": ["x-saisir-N"],
 		"body": ["procédure ${1:saisie_nb_eleves}(@${2:N}: entier)",
 			"début",
@@ -365,6 +373,23 @@
 			"└─────────────────────────────┴───────────────────┘",
 			""],			
 		"description":"(proc) remplissage contrôlé d'un tableau à une dimension"
+	},
+	"affichage d'un tableau":{
+		"prefix": ["x-aff-tab"],
+		"body": ["procédure ${1:afficher_noms}(${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
+			"début",
+			"\tpour i de 0 à ${4:N}-1 faire",
+			"\t\técrire(\"${5:Nom} n°\", i, \": \", ${2:T}[i])",
+			"\tfin_pour",
+			"fin",
+			"",
+			"┌─────────────────────────────┬───────────────────┐",
+			"│            Objet            │   Nature / Type   │",
+			"├─────────────────────────────┼───────────────────┤",
+			"│ i                           │ entier            │",
+			"└─────────────────────────────┴───────────────────┘",
+			""],			
+		"description":"(proc) affichage d'un tableau"
 	},
 	"remplissage d'une matrice carrée":{
 		"prefix": ["x-remp-mat-carrée"],
@@ -582,7 +607,7 @@
 			""],			
 		"description":"(proc) tri par insertion (v.1)"
 	},
-	"chaîne alphabétique (v.1)":{
+	"vérif. chaîne alphabétique (v.1)":{
 		"prefix": ["x-alpha-1"],
 		"body": ["fonction ${1:est_alphabetique}(${2:ch}: chaîne) : booléen",
 			"début",
@@ -608,7 +633,7 @@
 			""],			
 		"description":"(fn) vérif. si une chaîne est composée uniquement par des lettres alphabétiques (v.1)"
 	},
-	"chaîne alphabétique (v.2)":{
+	"vérif. chaîne alphabétique (v.2)":{
 		"prefix": ["x-alpha-2"],
 		"body": ["fonction ${1:est_alphabetique}(${2:ch}: chaîne) : booléen",
 			"début",
@@ -631,7 +656,7 @@
 			""],			
 		"description":"(fn) vérif. si une chaîne est composée uniquement par des lettres alphabétiques (v.2)"
 	},
-	"chaîne numérique":{
+	"vérif. chaîne numérique":{
 		"prefix": ["x-num"],
 		"body": ["fonction ${1:est_numérique}(${2:ch}: chaîne) : booléen",
 		"début",
