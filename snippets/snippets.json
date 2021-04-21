@@ -682,5 +682,12 @@
 		"└─────────────────────────────┴───────────────────┘",
 		""],			
 		"description":"(fn) vérif. si une chaîne est composée uniquement par des chiffres"
+	},
+	"fragment de code (py ou js)":{
+		"prefix": ["x-code-source"],
+		"body": ["```${1|python,javascript|}",
+		"$0",
+		"```"],			
+		"description":"ajout d'un fragment de code en python ou en javascript."
 	}
 }

@@ -31,6 +31,9 @@
 		},
 		{
 			"include": "#punctuation"
+		},
+		{
+			"include": "#sourcecode_block"
 		}
 	],
 	"repository": {
@@ -235,6 +238,50 @@
 				{
 					"name": "punctuation.separator.algo",
 					"match": "(,|;|:)"
+				}
+			]
+		},
+		"sourcecode_block": {
+			"patterns": [
+				{
+					"include": "#python_block"
+				},
+				{
+					"include": "#javascript_block"
+				}
+			]
+		},
+		"python_block": {
+			"begin": "(^|\\G)(\\s*)(`{3,})(?i:(python)((\\s+|:|\\{)[^`]*)?$)",
+			"end": "(^|\\G)(\\2|\\s{0,3})(\\3)\\s*$",
+			"name": "string.regexp.algo",
+			"patterns": [
+				{
+					"begin": "(^|\\G)(\\s*)(.*)",
+					"while": "(^|\\G)(?!\\s*([`]{3,})\\s*$)",
+					"contentName": "meta.embedded.block.python",
+					"patterns": [
+						{
+							"include": "source.python"
+						}
+					]
+				}
+			]
+		},
+		"javascript_block": {
+			"begin": "(^|\\G)(\\s*)(`{3,})(?i:(javascript)((\\s+|:|\\{)[^`]*)?$)",
+			"end": "(^|\\G)(\\2|\\s{0,3})(\\3)\\s*$",
+			"name": "string.regexp.algo",
+			"patterns": [
+				{
+					"begin": "(^|\\G)(\\s*)(.*)",
+					"while": "(^|\\G)(?!\\s*([`]{3,})\\s*$)",
+					"contentName": "meta.embedded.block.javascript",
+					"patterns": [
+						{
+							"include": "source.js"
+						}
+					]
 				}
 			]
 		}
