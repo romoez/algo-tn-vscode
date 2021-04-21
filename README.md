@@ -113,7 +113,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 ### TDO : Tableau de Déclaration des Objets
 
-> `tdo-1` (une ligne)
+> `tdo-1` (une ligne)  
 > `tdo-3` (3 lignes)
 
 ```
@@ -126,7 +126,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 ### TDNT : Tableau de Déclaration des Nouveaux Types
 
-> `tdnt-1` (type tableau)
+> `tdnt-1` (type tableau)  
 > `tdnt-2` (2 lignes/types: enregistrement & tableau)
 
 ```
@@ -144,7 +144,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 ### x-snippets
 
-| Déclencheur         | eXtrait de code                                                                                         |
+| Déclencheur         | extrait de code                                                                                         |
 | ------------------- | ------------------------------------------------------------------------------------------------------- |
 | `x-saisir-n`        | Procédure qui permet la saisie controlée d'un nombre                                                    |
 | `x-remp-tab`        | Procédure qui remplit un tableau à une dimension                                                        |
@@ -166,24 +166,24 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 ### 0.0.3
 
-- x-snippet: `x-tri-bul-2`: tri à bulles (v.2)
-- x-snippet: `x-tri-sél-2`: tri par sélection (v.2)
-- x-snippet: `x-alpha-1`: Vérification si une chaîne est alphabétique (v.1).
-- x-snippet: `x-alpha-2`: Vérification si une chaîne est alphabétique (v.2).
-- x-snippet: `x-num`: Vérification si une chaîne est numérique.
-- x-snippet: `x-aff-tab`: Affichage d'un tableau.
+- x-snippet `x-tri-bul-2`: tri à bulles (v.2)
+- x-snippet `x-tri-sél-2`: tri par sélection (v.2)
+- x-snippet `x-alpha-1`: vérification si une chaîne est alphabétique (v.1).
+- x-snippet `x-alpha-2`: vérification si une chaîne est alphabétique (v.2).
+- x-snippet `x-num`: vérification si une chaîne est numérique.
+- x-snippet `x-aff-tab`: affichage d'un tableau.
 - améléoration du dessin des tableaux (tdo et tdnt)
 - nouveau logo de l'extension
 
 ### 0.0.2
 
-- x-snippet: `x-saisir-n`: Saisie contrôlée d'un nombre
-- x-snippet: `x-remp-tab`: Remplissage contrôlé d'un tableau à une dimension
-- x-snippet: `x-remp-mat-carrée`: Remplissage contrôlé d'une matrice carrée
-- x-snippet: `x-remp-mat`: Remplissage contrôlé d'une matrice
-- x-snippet: `x-tri-bul-1`: tri à bulles (v.1)
-- x-snippet: `x-tri-sél-1`: tri par sélection (v.1)
-- x-snippet: `x-tri-ins-1`: tri par insertion (v.1)
+- x-snippet `x-saisir-n`: saisie contrôlée d'un nombre
+- x-snippet `x-remp-tab`: remplissage contrôlé d'un tableau à une dimension
+- x-snippet `x-remp-mat-carrée`: remplissage contrôlé d'une matrice carrée
+- x-snippet `x-remp-mat`: remplissage contrôlé d'une matrice
+- x-snippet `x-tri-bul-1`: tri à bulles (v.1)
+- x-snippet `x-tri-sél-1`: tri par sélection (v.1)
+- x-snippet `x-tri-ins-1`: tri par insertion (v.1)
 
 ### 0.0.1
 
