@@ -1,10 +1,10 @@
 # Algorithme en Pseudocode
 
-[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/moez-romdhane.algorithme-tn)](https://marketplace.visualstudio.com/items?itemName=moez-romdhane.algorithme-tn)
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/les-profs-d-info.algorithme-tn)](https://marketplace.visualstudio.com/items?itemName=les-profs-d-info.algorithme-tn)
 
 _Extension that provides syntax highlighting and snippets for pseudocode in French as it is written at high school in Tunisia :tunisia:._
 
-Une extension qui fournit la coloration syntaxique et des extraits de code (snippets) pour le pseudocode utilisé aux lycées en Tunisie :tunisia:.
+Une extension qui fournit la coloration syntaxique et des extraits de code (snippets) pour le pseudocode utilisé au lycée en Tunisie :tunisia:.
 ![algorithme-tn](https://github.com/romoez/algo-tn-vscode/raw/main/images/algorithme-tn.gif)
 
 - [Algorithme en Pseudocode](#algorithme-en-pseudocode)
@@ -23,6 +23,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
     - [TDNT : Tableau de Déclaration des Nouveaux Types](#tdnt--tableau-de-déclaration-des-nouveaux-types)
     - [x-snippets](#x-snippets)
   - [Notes de version](#notes-de-version)
+    - [0.0.4](#004)
     - [0.0.3](#003)
     - [0.0.2](#002)
     - [0.0.1](#001)
@@ -100,7 +101,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 ## Autocomplétion
 
 - Autocomplétion des mots réservés et des fonctions/procédures prdéfinies.
-- Autocomplétion de toutes les structures de contrôle.
+- Autocomplétion de toutes les structures de contrôle (sauf `selon`).
 - Autocomplétion des opérateurs de comparaison:
 
 | Déclencheur | Opérateur |
@@ -159,10 +160,16 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 | `x-alpha-1`         | Fonction qui vérifie si une chaîne est composée uniquement par des lettres alphabétiques (v.1)          |
 | `x-alpha-2`         | Fonction qui vérifie si une chaîne est composée uniquement par des lettres alphabétiques (v.2)          |
 | `x-num`             | Fonction qui vérifie si une chaîne est composée uniquement par des chiffres                             |
+| `x-code-source`      | Ajouter un fragment de code en _python_ ou en _javascript_                                              |
 
 ![x-snippets](https://github.com/romoez/algo-tn-vscode/raw/main/images/x-snippets.gif)
 
 ## Notes de version
+
+### 0.0.4
+
+- possibilité d'ajout des fragments de code en _python_ ou en  _javascript_.
+- x-snippet `x-code-source`: ajout d'un fragment de code en _python_ ou en _javascript_.
 
 ### 0.0.3
 

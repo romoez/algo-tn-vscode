@@ -1,13 +1,13 @@
 {
     "name": "algorithme-tn",
     "displayName": "Algorithme-tn",
-    "description": "Pseudocode utilisé aux lycées en Tunisie",
-    "version": "0.0.3",
+    "description": "Pseudocode utilisé au lycée en Tunisie",
+    "version": "0.0.4",
 	"icon": "images/icon.png",
     "engines": {
         "vscode": "^1.38.0"
     },
-    "publisher": "moez-romdhane",
+    "publisher": "les-profs-d-info",
     "categories": [
         "Programming Languages"
     ],
