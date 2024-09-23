@@ -54,19 +54,19 @@
 			"patterns": [
 				{
 					"name": "keyword.control.flow.algo",
-					"match": "(?i)\\b(à|alors|autres|de|début|faire|fin|fin_pour|fin_selon|fin_si|fin_tant_que|jusqu'à|pas|pour|retourner|répéter|selon|si|sinon|tant que)\\b"
+					"match": "(?i)\\b(à|alors|autres|de|d(e|é)but|faire|fin|fin[_-]?pour|fin[_-]?selon|fin[_-]?si|fin_tant_que|jusqu[' ]?(a|à)|pas|pour|retourner|r(e|é)p(e|é)ter|selon|si|sinon|tant[_-]?que)\\b"
 				},
 				{
 					"name":"support.function.algo",
-					"match": "(?i)\\b(aléa|arrondi|chr|convch|écrire|effacer|ent|estnum|fermer|fin_fichier|lire|lire_ligne|long|majus|ord|ouvrir|pointer|pos|racine_carrée|sous_chaîne|taille_fichier|valeur)\\b"
+					"match": "(?i)\\b(alea|arrondi|chr|convch|ecrire|effacer|ent|estnum|fermer|fin_fichier|lire|lire_ligne|long|majus|ord|ouvrir|pointer|pos|racine_carrée|sous_chaîne|taille_fichier|valeur)\\b"
 				},
 				{
 					"name":"entity.name.type.algo",
-					"match": "(?i)\\b(booléen|caractère|chaîne|enregistrement|entier|fichier|réel|tableau|texte)\\b"
+					"match": "(?i)\\b(bool(e|é)en|caractere|chaine|enregistrement|entier|fichier|r(e|é)el|tableau|texte)\\b"
 				},
 				{
 					"name": "keyword.declaration.function.algo",
-					"match": "(?i)\\b(fonction|procédure)\\b"
+					"match": "(?i)\\b(fonction|procedure)\\b"
 				},
 				{
 					"name": "keyword.declaration.impl.algo",
