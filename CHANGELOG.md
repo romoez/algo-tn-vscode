@@ -4,6 +4,27 @@ All notable changes to the "algorithme-tn" extension will be documented in this 
 
 ## [Unreleased]
 
+## [0.0.5] - 2025-09-15
+
+### Added
+
+- support de la structure `selon`
+- support de l'opérateur `∈` (appartient)
+- support de `écrire_nl`
+- x-snippet `x-tri-shell-1`: tri de Shell avec la séquence d'écarts (gaps) originale
+- x-snippet `x-tri-shell-2`: tri de Shell avec la séquence d'écarts (gaps) de Knuth
+
+
+### changed
+
+- des modifications mineures dans les procédures de tri
+
+### Removed
+
+- support de la fonction `taille_fichier`
+- tri à bulles v.2
+
+
 ## [0.0.4] - 2021-04-24
 
 ### Added

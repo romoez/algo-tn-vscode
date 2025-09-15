@@ -1,8 +1,8 @@
 {
     "name": "algorithme-tn",
     "displayName": "Algorithme-tn",
-    "description": "Pseudocode utilisé au lycée en Tunisie",
-    "version": "0.0.4",
+    "description": "Pseudocode conforme aux programmes du lycée en Tunisie",
+    "version": "0.0.5",
 	"icon": "images/icon.png",
     "engines": {
         "vscode": "^1.38.0"

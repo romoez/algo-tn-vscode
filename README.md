@@ -2,9 +2,9 @@
 
 [![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/les-profs-d-info.algorithme-tn)](https://marketplace.visualstudio.com/items?itemName=les-profs-d-info.algorithme-tn)
 
-_Extension that provides syntax highlighting and snippets for pseudocode in French as it is written at high school in Tunisia :tunisia:._
+_A VSCode extension offering syntax highlighting and snippets for French pseudocode, tailored for the Tunisian high school curriculum._
 
-Une extension qui fournit la coloration syntaxique et des extraits de code (snippets) pour le pseudocode utilisé au lycée en Tunisie :tunisia:.
+Une extension qui fournit la coloration syntaxique et des extraits de code (snippets) pour le pseudocode standard de l'enseignement secondaire tunisien :tunisia:.
 ![algorithme-tn](https://github.com/romoez/algo-tn-vscode/raw/main/images/algorithme-tn.gif)
 
 - [Algorithme en Pseudocode](#algorithme-en-pseudocode)
@@ -23,6 +23,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
     - [TDNT : Tableau de Déclaration des Nouveaux Types](#tdnt--tableau-de-déclaration-des-nouveaux-types)
     - [x-snippets](#x-snippets)
   - [Notes de version](#notes-de-version)
+    - [0.0.5](#005)
     - [0.0.4](#004)
     - [0.0.3](#003)
     - [0.0.2](#002)
@@ -33,9 +34,11 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 ### Commentaires
 
 ```javascript
-//double slash
+// commentaire jusqu'à la fin de la ligne
 
-/* block */
+/* commentaire
+sur plusieurs
+lignes */
 ```
 
 ### Mots clés
@@ -50,16 +53,16 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 ### Fonctions & Procédures prédéfinies
 
-|                 |               |                  |
-| --------------- | ------------- | ---------------- |
-| `aléa`          | `arrondi`     | `chr`            |
-| `convch`        | `écrire`      | `effacer`        |
-| `ent`           | `estnum`      | `fermer`         |
-| `fin_fichier`   | `lire`        | `lire_ligne`     |
-| `long`          | `majus`       | `ord`            |
-| `ouvrir`        | `pointer`     | `pos`            |
-| `racine_carrée` | `sous_chaîne` | `taille_fichier` |
-| `valeur`        |               |                  |
+|             |               |                 |
+| ----------- | ------------- | --------------- |
+| `aléa`      | `estnum`      | `ord`           |
+| `arrondi`   | `fermer`      | `ouvrir`        |
+| `chr`       | `fin_fichier` | `pointer`       |
+| `convch`    | `lire_ligne`  | `pos`           |
+| `écrire_nl` | `lire`        | `racine_carrée` |
+| `écrire`    | `long`        | `sous_chaîne`   |
+| `effacer`   | `majus`       | `valeur`        |
+| `ent`       |               |                 |
 
 ### Types
 
@@ -84,6 +87,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 | `<` | `≤` |
 | `>` | `≥` |
 | `=` | `≠` |
+| `∈` | ``  |
 
 ### Opérateurs logiques
 
@@ -101,14 +105,15 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 ## Autocomplétion
 
 - Autocomplétion des mots réservés et des fonctions/procédures prdéfinies.
-- Autocomplétion de toutes les structures de contrôle (sauf `selon`).
+- Autocomplétion de toutes les structures de contrôle.
 - Autocomplétion des opérateurs de comparaison:
 
-| Déclencheur | Opérateur |
-| ----------- | --------- |
-| `>=`        | `≤`       |
-| `<=`        | `≥`       |
-| `!=`        | `≠`       |
+| Déclencheur    | Opérateur |
+| -------------- | --------- |
+| `<=`           | `≤`       |
+| `>=`           | `≥`       |
+| `!=` ou `<>`   | `≠`       |
+| `in` ou `dans` | `∈`       |
 
 ## Extraits de code
 
@@ -118,11 +123,11 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 > `tdo-3` (3 lignes)
 
 ```
-┌─────────────────────────┬───────────────────┐
-│          Objet          │   Nature / Type   │
-├─────────────────────────┼───────────────────┤
-│ x                       │ entier            │
-└─────────────────────────┴───────────────────┘
+┌──────────────────────────────────┬────────────────────────┐
+│               Objet              │      Nature / Type     │
+├──────────────────────────────────┼────────────────────────┤
+│ x                                │ entier                 │
+└──────────────────────────────────┴────────────────────────┘
 ```
 
 ### TDNT : Tableau de Déclaration des Nouveaux Types
@@ -131,40 +136,48 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 > `tdnt-2` (2 lignes/types: enregistrement & tableau)
 
 ```
-┌─────────────────────────────────────────────┐
-│               Nouveaux Types                │
-├─────────────────────────────────────────────┤
-│ eleve = enregistrement                      │
-│     nom : chaîne                            │
-│     age : entier                            │
-│ fin                                         │
-├─────────────────────────────────────────────┤
-│ eleves = tableau de 20 entier               │
-└─────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────┐
+│                      Nouveaux Types                       │
+├───────────────────────────────────────────────────────────┤
+│ eleve = enregistrement                                    │
+│     nom : chaîne                                          │
+│     age : entier                                          │
+│ fin                                                       │
+├───────────────────────────────────────────────────────────┤
+│ tab_eleves = tableau de 20 entier                         │
+└───────────────────────────────────────────────────────────┘
 ```
 
 ### x-snippets
 
-| Déclencheur         | extrait de code                                                                                         |
-| ------------------- | ------------------------------------------------------------------------------------------------------- |
-| `x-saisir-n`        | Procédure qui permet la saisie controlée d'un nombre                                                    |
-| `x-remp-tab`        | Procédure qui remplit un tableau à une dimension                                                        |
-| `x-aff-tab`         | Procédure qui affiche le contenu d'un tableau                                                           |
-| `x-remp-mat-carrée` | Procédure qui remplit une matrice carrée                                                                |
-| `x-remp-mat`        | Procédure qui remplit une matrice                                                                       |
-| `x-tri-bul-1`       | Procédure qui met en ordre les éléments d'un tableau en utilisant la méthode de tri à bulles (v.1)      |
-| `x-tri-bul-2`       | Procédure qui met en ordre les éléments d'un tableau en utilisant la méthode de tri à bulles (v.2)      |
-| `x-tri-sél-1`       | Procédure qui met en ordre les éléments d'un tableau en utilisant la méthode de tri par sélection (v.1) |
-| `x-tri-sél-2`       | Procédure qui met en ordre les éléments d'un tableau en utilisant la méthode de tri par sélection (v.2) |
-| `x-tri-ins-1`       | Procédure qui met en ordre les éléments d'un tableau en utilisant la méthode de tri par insertion (v.1) |
-| `x-alpha-1`         | Fonction qui vérifie si une chaîne est composée uniquement par des lettres alphabétiques (v.1)          |
-| `x-alpha-2`         | Fonction qui vérifie si une chaîne est composée uniquement par des lettres alphabétiques (v.2)          |
-| `x-num`             | Fonction qui vérifie si une chaîne est composée uniquement par des chiffres                             |
-| `x-code-source`      | Ajouter un fragment de code en _python_ ou en _javascript_                                              |
+| Déclencheur         | extrait de code                                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------- |
+| `x-saisir-n`        | Procédure qui permet la saisie controlée d'un nombre                                           |
+| `x-remp-tab`        | Procédure qui remplit un tableau à une dimension                                               |
+| `x-aff-tab`         | Procédure qui affiche le contenu d'un tableau                                                  |
+| `x-remp-mat-carrée` | Procédure qui remplit une matrice carrée                                                       |
+| `x-remp-mat`        | Procédure qui remplit une matrice                                                              |
+| `x-tri-bul`         | Procédure de tri à bulles                                                                      |
+| `x-tri-sél-1`       | Procédure de tri par sélection (v.1)                                                           |
+| `x-tri-sél-2`       | Procédure de tri par sélection (v.2)                                                           |
+| `x-tri-ins`         | Procédure de tri par insertion                                                                 |
+| `x-tri-shell-1`     | Procédure de tri de Shell avec la séquence originale de gaps                                   |
+| `x-tri-shell-2`     | Procédure de tri de Shell avec la séquence de gaps de Knuth                                    |
+| `x-alpha-1`         | Fonction qui vérifie si une chaîne est composée uniquement par des lettres alphabétiques (v.1) |
+| `x-alpha-2`         | Fonction qui vérifie si une chaîne est composée uniquement par des lettres alphabétiques (v.2) |
+| `x-num`             | Fonction qui vérifie si une chaîne est composée uniquement par des chiffres                    |
+| `x-code-source`     | Ajouter un fragment de code en _python_ ou en _javascript_                                     |
 
 ![x-snippets](https://github.com/romoez/algo-tn-vscode/raw/main/images/x-snippets.gif)
 
 ## Notes de version
+
+### 0.0.5
+
+- support de la structure `selon`
+- support de l'opérateur `∈` (appartient)
+- x-snippet `x-tri-shell-1`: tri de Shell avec la séquence d'écarts (gaps) originale
+- x-snippet `x-tri-shell-2`: tri de Shell avec la séquence d'écarts (gaps) de Knuth
 
 ### 0.0.4
 
