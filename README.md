@@ -66,11 +66,11 @@ lignes */
 
 ### Types
 
-|                  |             |           |
-| ---------------- | ----------- | --------- |
-| `booléen`        | `caractère` | `chaîne`  |
-| `enregistrement` | `entier`    | `fichier` |
-| `réel`           | `tableau`   | `texte`   |
+|                  |             |                     |
+| ---------------- | ----------- | ------------------- |
+| `booléen`        | `caractère` | `chaîne`            |
+| `enregistrement` | `entier`    | `fichier de <type>` |
+| `réel`           | `tableau`   | `fichier texte`     |
 
 ### Mots clés de déclaration
 
