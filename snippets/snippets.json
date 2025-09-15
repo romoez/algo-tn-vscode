@@ -1,20 +1,43 @@
 {
-	"algorithme":{
-		"prefix": ["algorithme"],
-		"body": ["algorithme ${1:nom}","début","\t$0","fin"],
-		"description":"algorithme"
+	"algorithme": {
+		"prefix": [
+			"algorithme"
+		],
+		"body": [
+			"algorithme ${1:nom}",
+			"début",
+			"\t$0",
+			"fin"
+		],
+		"description": "algorithme"
 	},
-	"fonction (définition)":{
-		"prefix": ["fonction", "fn"],
-		"body": ["fonction ${1:nom}(${2:paramètres_formels}) : ${3|entier,chaîne,réel  ,booléen,caractère|}","début","\t$0","fin"],
-		"description":"fonction (définition)"
+	"fonction (définition)": {
+		"prefix": [
+			"fonction",
+			"fn"
+		],
+		"body": [
+			"fonction ${1:nom}(${2:paramètres_formels}) : ${3|entier,chaîne,réel  ,booléen,caractère|}",
+			"début",
+			"\t$0",
+			"fin"
+		],
+		"description": "fonction (définition)"
 	},
-	"procédure (définition)":{
-		"prefix": ["procédure", "proc"],
-		"body": ["procédure ${1:nom}(${2:paramètres_formels})","début","\t$0","fin"],
-		"description":"procédure (définition)"
+	"procédure (définition)": {
+		"prefix": [
+			"procédure",
+			"proc"
+		],
+		"body": [
+			"procédure ${1:nom}(${2:paramètres_formels})",
+			"début",
+			"\t$0",
+			"fin"
+		],
+		"description": "procédure (définition)"
 	},
-	"tdo: 1 ligne":{
+	"tdo: 1 ligne": {
 		"prefix": "tdo-1",
 		"body": [
 			"┌──────────────────────────────────┬────────────────────────┐",
@@ -22,10 +45,11 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ ${1:x}                                │ ${2|entier       ,chaîne       ,réel         ,booléen      ,caractère    ,fonction     ,procédure    ,fichier texte|}          │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],
-		"description":"tdo: 1 ligne"
+			""
+		],
+		"description": "tdo: 1 ligne"
 	},
-	"tdo: 3 lignes":{
+	"tdo: 3 lignes": {
 		"prefix": "tdo-3",
 		"body": [
 			"┌──────────────────────────────────┬────────────────────────┐",
@@ -37,22 +61,28 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ ${5:z}                                │ ${6|entier       ,chaîne       ,réel         ,booléen      ,caractère    ,fonction     ,procédure    ,fichier texte|}          │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],
-		"description":"tdo: 3 lignes"
+			""
+		],
+		"description": "tdo: 3 lignes"
 	},
-	"nouveau type: tableau":{
-		"prefix": ["tdnt-1"],
+	"nouveau type: tableau": {
+		"prefix": [
+			"tdnt-1"
+		],
 		"body": [
 			"┌───────────────────────────────────────────────────────────┐",
 			"│                      Nouveaux Types                       │",
 			"├───────────────────────────────────────────────────────────┤",
 			"│ ${1:tab_eleves} = tableau de ${2:20} ${3|entier   ,chaîne   ,réel     ,booléen  ,caractère|}                      │",
 			"└───────────────────────────────────────────────────────────┘",
-			""],
-		"description":"déclaration des nouveaux types"
+			""
+		],
+		"description": "déclaration des nouveaux types"
 	},
-	"nouveaux types: 2en1":{
-		"prefix": ["tdnt-2"],
+	"nouveaux types: 2en1": {
+		"prefix": [
+			"tdnt-2"
+		],
 		"body": [
 			"┌───────────────────────────────────────────────────────────┐",
 			"│                      Nouveaux Types                       │",
@@ -64,25 +94,40 @@
 			"├───────────────────────────────────────────────────────────┤",
 			"│ ${6:tab_eleves} = tableau de ${7:20} ${8|entier   ,chaîne   ,réel     ,booléen  ,caractère|}                      │",
 			"└───────────────────────────────────────────────────────────┘",
-			""],
-		"description":"nouveaux types: enregistrement + tableau"
+			""
+		],
+		"description": "nouveaux types: enregistrement + tableau"
 	},
-	"boucle pour":{
+	"boucle pour": {
 		"prefix": "pour",
-		"body": ["pour ${1:i} de ${2:0} à ${3:N-1} faire","\t$0","fin_pour"],
-		"description":"boucle pour"
+		"body": [
+			"pour ${1:i} de ${2:0} à ${3:N-1} faire",
+			"\t$0",
+			"fin_pour"
+		],
+		"description": "boucle pour"
 	},
-	"si...alors":{
+	"si...alors": {
 		"prefix": "si-alors",
-		"body": ["si ${1:conditon} alors","\t$0","fin_si"],
-		"description":"si...alors"
+		"body": [
+			"si ${1:conditon} alors",
+			"\t$0",
+			"fin_si"
+		],
+		"description": "si...alors"
 	},
-	"si...alors...sinon":{
+	"si...alors...sinon": {
 		"prefix": "si-sinon",
-		"body": ["si ${1:conditon} alors","\t$0","sinon","\t","fin_si"],
-		"description":"si...alors...sinon"
+		"body": [
+			"si ${1:conditon} alors",
+			"\t$0",
+			"sinon",
+			"\t",
+			"fin_si"
+		],
+		"description": "si...alors...sinon"
 	},
-	"structure selon":{
+	"structure selon": {
 		"prefix": "selon",
 		"body": [
 			"selon ${1:sélecteur}",
@@ -90,298 +135,469 @@
 			"\t${4:7..10} : ${5:traitement_2}",
 			"\tsinon ${6:traitement_3}",
 			"fin_selon",
-			"$0"],
-		"description":"structure selon"
-	},	
-	"boucle tant-que":{
+			"$0"
+		],
+		"description": "structure selon"
+	},
+	"boucle tant-que": {
 		"prefix": "tant-que",
-		"body": ["tant que ${1:condition} faire","\t$0","fin_tant_que"],
-		"description":"boucle tant que"
+		"body": [
+			"tant que ${1:condition} faire",
+			"\t$0",
+			"fin_tant_que"
+		],
+		"description": "boucle tant que"
 	},
-	"boucle répéter":{
-		"prefix": ["répéter", "repeter"],
-		"body": ["répéter","\t$0","jusqu'à  ${1:condition}"],
-		"description":"boucle répéter"
+	"boucle répéter": {
+		"prefix": [
+			"répéter",
+			"repeter"
+		],
+		"body": [
+			"répéter",
+			"\t$0",
+			"jusqu'à  ${1:condition}"
+		],
+		"description": "boucle répéter"
 	},
-	"de":{
-		"prefix":"de",
-		"body":["de $0"]
+	"de": {
+		"prefix": "de",
+		"body": [
+			"de $0"
+		]
 	},
-	"début":{
-		"prefix":["début", "debut"],
-		"body":["début $0"]
+	"début": {
+		"prefix": [
+			"début",
+			"debut"
+		],
+		"body": [
+			"début $0"
+		]
 	},
-	"faire":{
-		"prefix":"faire",
-		"body":["faire $0"]
+	"faire": {
+		"prefix": "faire",
+		"body": [
+			"faire $0"
+		]
 	},
-	"fin":{
-		"prefix":"fin",
-		"body":["fin $0"]
+	"fin": {
+		"prefix": "fin",
+		"body": [
+			"fin $0"
+		]
 	},
-	"fin_pour":{
-		"prefix":"fin_pour",
-		"body":["fin_pour $0"]
+	"fin_pour": {
+		"prefix": "fin_pour",
+		"body": [
+			"fin_pour $0"
+		]
 	},
-	"fin_si":{
-		"prefix":"fin_si",
-		"body":["fin_si $0"]
+	"fin_si": {
+		"prefix": "fin_si",
+		"body": [
+			"fin_si $0"
+		]
 	},
-	"fin_selon":{
-		"prefix":"fin_selon",
-		"body":["fin_selon $0"]
+	"fin_selon": {
+		"prefix": "fin_selon",
+		"body": [
+			"fin_selon $0"
+		]
 	},
-	"fin_tant_que":{
-		"prefix":"fin_tant_que",
-		"body":["fin_tant_que $0"]
+	"fin_tant_que": {
+		"prefix": "fin_tant_que",
+		"body": [
+			"fin_tant_que $0"
+		]
 	},
-	"jusqu'à":{
-		"prefix":"jusqu'à",
-		"body":["jusqu'à $0"]
+	"jusqu'à": {
+		"prefix": "jusqu'à",
+		"body": [
+			"jusqu'à $0"
+		]
 	},
-	"pas":{
-		"prefix":"pas",
-		"body":["pas $0"]
+	"pas": {
+		"prefix": "pas",
+		"body": [
+			"pas $0"
+		]
 	},
-	"retourner":{
-		"prefix":"retourner",
-		"body":["retourner $0"]
+	"retourner": {
+		"prefix": "retourner",
+		"body": [
+			"retourner $0"
+		]
 	},
-	"selon":{
-		"prefix":"selon",
-		"body":["selon $0"]
-	},	
-	"sinon":{
-		"prefix":"sinon",
-		"body":["sinon $0"]
+	"selon": {
+		"prefix": "selon",
+		"body": [
+			"selon $0"
+		]
 	},
-	"fonction aléa()":{
-		"prefix":["aléa", "alea"],
-		"body":["aléa(${1:vi}, ${2:vf}) $0"],
-		"description":"fonction aléa()"
+	"sinon": {
+		"prefix": "sinon",
+		"body": [
+			"sinon $0"
+		]
 	},
-	"fonction arrondi()":{
-		"prefix":"arrondi",
-		"body":["arrondi(${1:un_réel}) $0"],
-		"description":"fonction arrondi()"
+	"fonction aléa()": {
+		"prefix": [
+			"aléa",
+			"alea"
+		],
+		"body": [
+			"aléa(${1:vi}, ${2:vf}) $0"
+		],
+		"description": "fonction aléa()"
 	},
-	"fonction chr()":{
-		"prefix":"chr",
-		"body":["chr(${1:code_ascii}) $0"],
-		"description":"fonction chr()"
+	"fonction arrondi()": {
+		"prefix": "arrondi",
+		"body": [
+			"arrondi(${1:un_réel}) $0"
+		],
+		"description": "fonction arrondi()"
 	},
-	"fonction convch()":{
-		"prefix":"convch",
-		"body":["convch(${1:nombre}) $0"],
-		"description":"fonction convch()"
+	"fonction chr()": {
+		"prefix": "chr",
+		"body": [
+			"chr(${1:code_ascii}) $0"
+		],
+		"description": "fonction chr()"
 	},
-	"fonction effacer()":{
-		"prefix":"effacer",
-		"body":["effacer(${1:une_chaîne}, ${2:d}, ${3:f_exclue}) $0"],
-		"description":"fonction effacer()"
+	"fonction convch()": {
+		"prefix": "convch",
+		"body": [
+			"convch(${1:nombre}) $0"
+		],
+		"description": "fonction convch()"
 	},
-	"fonction ent()":{
-		"prefix":"ent",
-		"body":["ent(${1:un_réel}) $0"],
-		"description":"fonction ent()"
+	"fonction effacer()": {
+		"prefix": "effacer",
+		"body": [
+			"effacer(${1:une_chaîne}, ${2:d}, ${3:f_exclue}) $0"
+		],
+		"description": "fonction effacer()"
 	},
-	"fonction estnum()":{
-		"prefix":"estnum",
-		"body":["estnum(${1:une_chaîne}) $0"],
-		"description":"fonction estnum()"
+	"fonction ent()": {
+		"prefix": "ent",
+		"body": [
+			"ent(${1:un_réel}) $0"
+		],
+		"description": "fonction ent()"
 	},
-	"procédure fermer()":{
-		"prefix":"fermer",
-		"body":["fermer(${1:un_fichier}) $0"],
-		"description":"procédure fermer()"
+	"fonction estnum()": {
+		"prefix": "estnum",
+		"body": [
+			"estnum(${1:une_chaîne}) $0"
+		],
+		"description": "fonction estnum()"
 	},
-	"fonction fin_fichier()":{
-		"prefix":"fin_fichier",
-		"body":["fin_fichier(${1:un_fichier}) $0"],
-		"description":"fonction fin_fichier()"
+	"procédure fermer()": {
+		"prefix": "fermer",
+		"body": [
+			"fermer(${1:un_fichier}) $0"
+		],
+		"description": "procédure fermer()"
 	},
-	"procédure lire()":{
-		"prefix":"lire",
-		"body":["lire(${1:une_var}) $0"],
-		"description":"procédure lire()"
+	"fonction fin_fichier()": {
+		"prefix": "fin_fichier",
+		"body": [
+			"fin_fichier(${1:un_fichier}) $0"
+		],
+		"description": "fonction fin_fichier()"
 	},
-	"procédure lire_ligne()":{
-		"prefix":"lire_ligne",
-		"body":["lire_ligne(${1:un_fichier}, ${2:une_var}) $0"],
-		"description":"procédure lire_ligne()"
+	"procédure lire()": {
+		"prefix": "lire",
+		"body": [
+			"lire(${1:une_var}) $0"
+		],
+		"description": "procédure lire()"
 	},
-	"fonction long()":{
-		"prefix":"long",
-		"body":["long(${1:une_chaîne}) $0"],
-		"description":"fonction long()"
+	"procédure lire_ligne()": {
+		"prefix": "lire_ligne",
+		"body": [
+			"lire_ligne(${1:un_fichier}, ${2:une_var}) $0"
+		],
+		"description": "procédure lire_ligne()"
 	},
-	"fonction majus()":{
-		"prefix":"majus",
-		"body":["majus(${1:une_chaîne}) $0"],
-		"description":"fonction majus()"
+	"fonction long()": {
+		"prefix": "long",
+		"body": [
+			"long(${1:une_chaîne}) $0"
+		],
+		"description": "fonction long()"
 	},
-	"fonction ord()":{
-		"prefix":"ord",
-		"body":["ord(${1:un_caractère}) $0"],
-		"description":"fonction ord()"
+	"fonction majus()": {
+		"prefix": "majus",
+		"body": [
+			"majus(${1:une_chaîne}) $0"
+		],
+		"description": "fonction majus()"
 	},
-	"procédure ouvrir()":{
-		"prefix":"ouvrir",
-		"body":["ouvrir(${1:chemin_fichier}, ${2:nom_var}, \"${3:r}\") $0"],
-		"description":"procédure ouvrir()"
+	"fonction ord()": {
+		"prefix": "ord",
+		"body": [
+			"ord(${1:un_caractère}) $0"
+		],
+		"description": "fonction ord()"
 	},
-	"fonction pointer()":{
-		"prefix":"pointer",
-		"body":["pointer(${1:nom_fichier}, ${2:position}) $0"],
-		"description":"fonction pointer()"
+	"procédure ouvrir()": {
+		"prefix": "ouvrir",
+		"body": [
+			"ouvrir(${1:chemin_fichier}, ${2:nom_var}, \"${3:r}\") $0"
+		],
+		"description": "procédure ouvrir()"
 	},
-	"fonction pos()":{
-		"prefix":"pos",
-		"body":["pos(${1:ch1}, ${2:ch2}) $0"],
-		"description":"fonction pos()"
+	"fonction pointer()": {
+		"prefix": "pointer",
+		"body": [
+			"pointer(${1:nom_fichier}, ${2:position}) $0"
+		],
+		"description": "fonction pointer()"
 	},
-	"fonction racine_carrée()":{
-		"prefix":"racine_carrée",
-		"body":["racine_carrée(${1:un_nombre}) $0"],
-		"description":"fonction racine_carrée()"
+	"fonction pos()": {
+		"prefix": "pos",
+		"body": [
+			"pos(${1:ch1}, ${2:ch2}) $0"
+		],
+		"description": "fonction pos()"
 	},
-	"fonction sous_chaîne()":{
-		"prefix":"sous_chaîne",
-		"body":["sous_chaîne(${1:une_chaîne}, ${2:d}, ${3:f_exclue}) $0"],
-		"description":"fonction sous_chaîne()"
+	"fonction racine_carrée()": {
+		"prefix": "racine_carrée",
+		"body": [
+			"racine_carrée(${1:un_nombre}) $0"
+		],
+		"description": "fonction racine_carrée()"
 	},
-	"fonction valeur()":{
-		"prefix":"valeur",
-		"body":["valeur(${1:une_chaîne}) $0"],
-		"description":"fonction valeur()"
+	"fonction sous_chaîne()": {
+		"prefix": "sous_chaîne",
+		"body": [
+			"sous_chaîne(${1:une_chaîne}, ${2:d}, ${3:f_exclue}) $0"
+		],
+		"description": "fonction sous_chaîne()"
 	},
-	"procédure écrire()":{
-		"prefix":["écrire", "ecrire"],
-		"body":["écrire(${1:expression}) $0"],
-		"description":"procédure écrire()"
+	"fonction valeur()": {
+		"prefix": "valeur",
+		"body": [
+			"valeur(${1:une_chaîne}) $0"
+		],
+		"description": "fonction valeur()"
 	},
-	"procédure écrire_nl()":{
-		"prefix":["écrire_nl", "ecrire_nl"],
-		"body":["écrire_nl(${1:expression}) $0"],
-		"description":"procédure écrire_nl()"
+	"procédure écrire()": {
+		"prefix": [
+			"écrire",
+			"ecrire"
+		],
+		"body": [
+			"écrire(${1:expression}) $0"
+		],
+		"description": "procédure écrire()"
 	},
-	"type booléen":{
-		"prefix":["booléen", "bool"],
-		"body":["booléen$0"]
+	"procédure écrire_nl()": {
+		"prefix": [
+			"écrire_nl",
+			"ecrire_nl"
+		],
+		"body": [
+			"écrire_nl(${1:expression}) $0"
+		],
+		"description": "procédure écrire_nl()"
 	},
-	"type caractère":{
-		"prefix":["caractère", "car"],
-		"body":["caractère$0"]
+	"type booléen": {
+		"prefix": [
+			"booléen",
+			"bool"
+		],
+		"body": [
+			"booléen$0"
+		]
 	},
-	"type chaîne":{
-		"prefix":["chaîne", "chaine"],
-		"body":["chaîne$0"]
+	"type caractère": {
+		"prefix": [
+			"caractère",
+			"car"
+		],
+		"body": [
+			"caractère$0"
+		]
 	},
-	"type enregistrement":{
-		"prefix":"enregistrement",
-		"body":["enregistrement$0"]
+	"type chaîne": {
+		"prefix": [
+			"chaîne",
+			"chaine"
+		],
+		"body": [
+			"chaîne$0"
+		]
 	},
-	"type entier":{
-		"prefix":"entier",
-		"body":["entier$0"]
+	"type enregistrement": {
+		"prefix": "enregistrement",
+		"body": [
+			"enregistrement$0"
+		]
 	},
-	"type fichier texte":{
-		"prefix":"fichier-texte",
-		"body":["fichier texte$0"]
+	"type entier": {
+		"prefix": "entier",
+		"body": [
+			"entier$0"
+		]
 	},
-	"type fichier typé":{
-		"prefix":"fichier-typé",
-		"body":["fichier de ${1:entier}$0"]
+	"type fichier texte": {
+		"prefix": [
+			"text",
+			"fichier-texte"
+		],
+		"body": [
+			"fichier texte$0"
+		]
 	},
-	"type réel":{
-		"prefix":["réel", "reel"],
-		"body":["réel$0"]
+	"type fichier typé": {
+		"prefix": "fichier-typé",
+		"body": [
+			"fichier de ${1:entier}$0"
+		]
 	},
-	"type tableau":{
-		"prefix":"tableau",
-		"body":["tableau de ${1:20} ${2:entier}$0"]
+	"type réel": {
+		"prefix": [
+			"réel",
+			"reel"
+		],
+		"body": [
+			"réel$0"
+		]
 	},
-	"type texte (fichier)":{
-		"prefix":"texte",
-		"body":["texte$0"]
+	"type tableau": {
+		"prefix": "tableau",
+		"body": [
+			"tableau de ${1:20} ${2:entier}$0"
+		]
 	},
-	"type fonction":{
-		"prefix":"fonction",
-		"body":["fonction $0"]
+	"type fonction": {
+		"prefix": "fonction",
+		"body": [
+			"fonction $0"
+		]
 	},
-	"type procédure":{
-		"prefix":["procédure", "proc"],
-		"body":["procédure $0"]
+	"type procédure": {
+		"prefix": [
+			"procédure",
+			"proc"
+		],
+		"body": [
+			"procédure $0"
+		]
 	},
-	"opérateur ≥":{
-		"prefix": [">="],
-		"body": ["≥ $0"],
-		"description":"(opérateur) supérieur ou égal"
+	"opérateur ≥": {
+		"prefix": [
+			">="
+		],
+		"body": [
+			"≥ $0"
+		],
+		"description": "(opérateur) supérieur ou égal"
 	},
-	"opérateur ≤":{
-		"prefix": ["<="],
-		"body": ["≤ $0"],
-		"description":"(opérateur) inférieur ou égal"
+	"opérateur ≤": {
+		"prefix": [
+			"<="
+		],
+		"body": [
+			"≤ $0"
+		],
+		"description": "(opérateur) inférieur ou égal"
 	},
-	"opérateur ∈":{
-		"prefix":["in", "dans", "appartient"],
-		"body":["∈ $0"],
-		"description":"(opérateur) appartient"
+	"opérateur ∈": {
+		"prefix": [
+			"in",
+			"dans",
+			"appartient"
+		],
+		"body": "∈ $0",
+		"description": "(opérateur) appartient"
 	},
-
-	"opérateur ≠":{
-		"prefix": ["!=", "<>"],
-		"body": ["≠ $0"],
-		"description":"(opérateur) différent"
+	"opérateur ≠": {
+		"prefix": [
+			"!=",
+			"<>"
+		],
+		"body": [
+			"≠ $0"
+		],
+		"description": "(opérateur) différent"
 	},
-	"affectation (<--)":{
-		"prefix": ["<--"],
-		"body": ["<-- $0"],
-		"description":"affectation (<--)"
+	"affectation (<--)": {
+		"prefix": [
+			"<--"
+		],
+		"body": [
+			"<-- $0"
+		],
+		"description": "affectation (<--)"
 	},
-	"opérateur et":{
-		"prefix":"et",
-		"body":["et $0"]
+	"opérateur et": {
+		"prefix": "et",
+		"body": [
+			"et $0"
+		]
 	},
-	"opérateur ou":{
-		"prefix":"ou",
-		"body":["ou $0"]
+	"opérateur ou": {
+		"prefix": "ou",
+		"body": [
+			"ou $0"
+		]
 	},
-	"opérateur non":{
-		"prefix":"non",
-		"body":["non $0"]
+	"opérateur non": {
+		"prefix": "non",
+		"body": [
+			"non $0"
+		]
 	},
-	"opérateur div":{
-		"prefix":"div",
-		"body":["div $0"]
+	"opérateur div": {
+		"prefix": "div",
+		"body": [
+			"div $0"
+		]
 	},
-	"opérateur mod":{
-		"prefix":"mod",
-		"body":["mod $0"]
+	"opérateur mod": {
+		"prefix": "mod",
+		"body": [
+			"mod $0"
+		]
 	},
-	"faux":{
-		"prefix":"faux",
-		"body":["faux $0"]
+	"faux": {
+		"prefix": "faux",
+		"body": [
+			"faux $0"
+		]
 	},
-	"vrai":{
-		"prefix":"vrai",
-		"body":["vrai $0"]
+	"vrai": {
+		"prefix": "vrai",
+		"body": [
+			"vrai $0"
+		]
 	},
-	"saisie contrôlée d'un nombre":{
-		"prefix": ["x-saisir-N"],
-		"body": ["procédure ${1:saisie_nb_eleves}(@${2:N}: entier)",
+	"saisie contrôlée d'un nombre": {
+		"prefix": [
+			"x-saisir-N"
+		],
+		"body": [
+			"procédure ${1:saisir}(@${2:N}: entier)",
 			"début",
 			"\trépéter",
 			"\t\técrire(\"${3:Saisir N:} \") ",
 			"\t\tlire(${2:N})",
-			"\tjusqu'à  ${6:${2:N} ≥ ${4:5} et ${2:N} ≤ ${5:20}}",
+			"\tjusqu'à  ${6:${4:5} ≤ ${2:N} ≤ ${5:20}}",
 			"fin",
-			""],			
-		"description":"(proc) saisie contrôlée d'un nombre"
+			""
+		],
+		"description": "(proc) saisie contrôlée d'un nombre"
 	},
-	"remplissage d'un tableau":{
-		"prefix": ["x-remp-tab"],
-		"body": ["procédure ${1:saisie_des_noms}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
+	"remplissage d'un tableau": {
+		"prefix": [
+			"x-remp-tab"
+		],
+		"body": [
+			"procédure ${1:remplir}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
 			"début",
 			"\tpour i de 0 à ${4:N}-1 faire",
 			"\t\trépéter",
@@ -396,12 +612,16 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ i                                │ entier                 │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(proc) remplissage contrôlé d'un tableau à une dimension"
+			""
+		],
+		"description": "(proc) remplissage contrôlé d'un tableau à une dimension"
 	},
-	"affichage d'un tableau":{
-		"prefix": ["x-aff-tab"],
-		"body": ["procédure ${1:afficher_noms}(${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
+	"affichage d'un tableau": {
+		"prefix": [
+			"x-aff-tab"
+		],
+		"body": [
+			"procédure ${1:afficher}(${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
 			"début",
 			"\tpour i de 0 à ${4:N}-1 faire",
 			"\t\técrire(\"${5:Nom} n°\", i, \": \", ${2:T}[i])",
@@ -413,12 +633,16 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ i                                │ entier                 │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(proc) affichage d'un tableau"
+			""
+		],
+		"description": "(proc) affichage d'un tableau"
 	},
-	"remplissage d'une matrice carrée":{
-		"prefix": ["x-remp-mat-carrée"],
-		"body": ["procédure ${1:remplissage_mat}(@${2:T}: ${3:tableau_2d}, ${4:N}:entier)",
+	"remplissage d'une matrice carrée": {
+		"prefix": [
+			"x-remp-mat-carrée"
+		],
+		"body": [
+			"procédure ${1:remplir}(@${2:T}: ${3:mat}, ${4:N}:entier)",
 			"début",
 			"\tpour i de 0 à ${4:N}-1 faire",
 			"\t\tpour i de 0 à ${4:N}-1 faire",
@@ -435,12 +659,16 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ i, j                             │ entier                 │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(proc) remplissage contrôlé d'une matrice carrée"
+			""
+		],
+		"description": "(proc) remplissage contrôlé d'une matrice carrée"
 	},
-	"remplissage d'une matrice":{
-		"prefix": ["x-remp-mat"],
-		"body": ["procédure ${1:remplissage_mat}(@${2:T}: ${3:tableau_2d}, ${4:nb_lignes}, ${5:nb_colonnes} :entier)",
+	"remplissage d'une matrice": {
+		"prefix": [
+			"x-remp-mat"
+		],
+		"body": [
+			"procédure ${1:remplir}(@${2:T}: ${3:mat}, ${4:nb_lignes}, ${5:nb_colonnes} :entier)",
 			"début",
 			"\tpour i de 0 à ${4:nb_lignes}-1 faire",
 			"\t\tpour j de 0 à ${5:nb_colonnes}-1 faire",
@@ -457,12 +685,16 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ i, j                             │ entier                 │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(proc) remplissage contrôlé d'une matrice"
+			""
+		],
+		"description": "(proc) remplissage contrôlé d'une matrice"
 	},
-	"tri à bulles":{
-		"prefix": ["x-tri-bul"],
-		"body": ["procédure ${1:tri_à_bulles}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
+	"tri à bulles": {
+		"prefix": [
+			"x-tri-bul"
+		],
+		"body": [
+			"procédure ${1:tri_à_bulles}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
 			"début",
 			"\trépéter",
 			"\t\taucune_permutation <-- vrai",
@@ -486,12 +718,16 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ ${6:kes}                              │ ${7|entier   ,chaîne   ,réel     ,booléen  ,caractère|}              │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(proc) tri à bulles"
+			""
+		],
+		"description": "(proc) tri à bulles"
 	},
-	"tri par sélection (v.1)":{
-		"prefix": ["x-tri-sél-1"],
-		"body": ["procédure ${1:tri_par_sélection}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
+	"tri par sélection (v.1)": {
+		"prefix": [
+			"x-tri-sél-1"
+		],
+		"body": [
+			"procédure ${1:tri_par_sélection}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
 			"début",
 			"\tpour i de 0 à ${4:N}-2 faire",
 			"\t\t// recherche de la position du ${5|min,max|}imum",
@@ -519,12 +755,16 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ ${7:kes}                              │ ${8|entier   ,chaîne   ,réel     ,booléen  ,caractère|}              │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(proc) tri par sélection (v.1)"
+			""
+		],
+		"description": "(proc) tri par sélection (v.1)"
 	},
-	"tri par sélection (v.2)":{
-		"prefix": ["x-tri-sél-2"],
-		"body": ["procédure ${1:tri_par_sélection}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
+	"tri par sélection (v.2)": {
+		"prefix": [
+			"x-tri-sél-2"
+		],
+		"body": [
+			"procédure ${1:tri_par_sélection}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
 			"début",
 			"\tpour i de 0 à ${4:N}-2 faire",
 			"\t\tpos_${5|min,max|} <-- chercher_pos_${5|min,max|}(${2:T}, i, ${4:N}-1)",
@@ -572,12 +812,16 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ kes                              │ ${8|entier   ,chaîne   ,réel     ,booléen  ,caractère|}              │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(proc) tri par sélection (v.2)"
+			""
+		],
+		"description": "(proc) tri par sélection (v.2)"
 	},
-	"tri par insertion":{
-		"prefix": ["x-tri-ins"],
-		"body": ["procédure ${1:tri_par_insertion}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
+	"tri par insertion": {
+		"prefix": [
+			"x-tri-ins"
+		],
+		"body": [
+			"procédure ${1:tri_par_insertion}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
 			"début",
 			"\tpour i de 1 à ${4:N}-1 faire",
 			"\t\ttemp <-- ${2:T}[i]",
@@ -599,15 +843,19 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ temp                             │ ${6|entier   ,chaîne   ,réel     ,booléen  ,caractère|}              │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(proc) tri par insertion"
+			""
+		],
+		"description": "(proc) tri par insertion"
 	},
-	"tri de Shell (v.1)":{
-		"prefix": ["x-tri-shell-1"],
-		"body": ["procédure ${1:tri_shell}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
+	"tri de Shell (v.1)": {
+		"prefix": [
+			"x-tri-shell-1"
+		],
+		"body": [
+			"procédure ${1:tri_shell}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
 			"début",
-            "\tgap <-- ${4:N} div 2",
-            "\ttant que gap > 0 faire",
+			"\tgap <-- ${4:N} div 2",
+			"\ttant que gap > 0 faire",
 			"\t\tpour i de gap à ${4:N}-1 faire",
 			"\t\t\ttemp <-- ${2:T}[i]",
 			"\t\t\tj <-- i",
@@ -620,7 +868,7 @@
 			"\t\t\t${2:T}[j] <-- temp",
 			"\t\tfin_pour",
 			"\t\tgap <-- gap div 2",
-            "\tfin_tant_que",
+			"\tfin_tant_que",
 			"fin",
 			"",
 			"┌──────────────────────────────────┬────────────────────────┐",
@@ -630,19 +878,23 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ temp                             │ ${6|entier   ,chaîne   ,réel     ,booléen  ,caractère|}              │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(proc) tri de Shell avec la séquence d'écarts (gaps) originale"
+			""
+		],
+		"description": "(proc) tri de Shell avec la séquence d'écarts (gaps) originale"
 	},
-	"tri de Shell (v.2)":{
-		"prefix": ["x-tri-shell-2"],
-		"body": ["procédure ${1:tri_shell}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
+	"tri de Shell (v.2)": {
+		"prefix": [
+			"x-tri-shell-2"
+		],
+		"body": [
+			"procédure ${1:tri_shell}(@${2:T}: ${3:tab_eleves}, ${4:N}:entier)",
 			"début",
-            "\tgap <-- 1",
-            "\ttant que gap < ${4:N} faire",
-            "\t\tgap ← 3 * gap + 1",
-            "\tfin_tant_que",
+			"\tgap <-- 1",
+			"\ttant que gap < ${4:N} faire",
+			"\t\tgap ← 3 * gap + 1",
+			"\tfin_tant_que",
 			"",
-            "\ttant que gap > 1 faire",
+			"\ttant que gap > 1 faire",
 			"\t\tgap <-- gap div 3",
 			"\t\tpour i de gap à ${4:N}-1 faire",
 			"\t\t\ttemp <-- ${2:T}[i]",
@@ -655,7 +907,7 @@
 			"\t\t\t",
 			"\t\t\t${2:T}[j + gap] <-- temp",
 			"\t\tfin_pour",
-            "\tfin_tant_que",
+			"\tfin_tant_que",
 			"fin",
 			"",
 			"┌──────────────────────────────────┬────────────────────────┐",
@@ -665,12 +917,16 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ temp                             │ ${6|entier   ,chaîne   ,réel     ,booléen  ,caractère|}              │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(proc) tri de Shell avec la séquence d'écarts (gaps) de Knuth"
+			""
+		],
+		"description": "(proc) tri de Shell avec la séquence d'écarts (gaps) de Knuth"
 	},
-	"vérif. chaîne alphabétique (v.1)":{
-		"prefix": ["x-alpha-1"],
-		"body": ["fonction ${1:est_alphabetique}(${2:ch}: chaîne) : booléen",
+	"vérif. chaîne alphabétique (v.1)": {
+		"prefix": [
+			"x-alpha-1"
+		],
+		"body": [
+			"fonction ${1:est_alphabetique}(${2:ch}: chaîne) : booléen",
 			"début",
 			"\t${2:ch} <-- majus(${2:ch})",
 			"\ti <-- 0",
@@ -686,12 +942,16 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ i                                │ entier                 │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(fn) vérif. si une chaîne est composée uniquement par des lettres alphabétiques (v.1)"
+			""
+		],
+		"description": "(fn) vérif. si une chaîne est composée uniquement par des lettres alphabétiques (v.1)"
 	},
-	"vérif. chaîne alphabétique (v.2)":{
-		"prefix": ["x-alpha-2"],
-		"body": ["fonction ${1:est_alphabetique}(${2:ch}: chaîne) : booléen",
+	"vérif. chaîne alphabétique (v.2)": {
+		"prefix": [
+			"x-alpha-2"
+		],
+		"body": [
+			"fonction ${1:est_alphabetique}(${2:ch}: chaîne) : booléen",
 			"début",
 			"\t${2:ch} <-- majus(${2:ch})",
 			"\ti <-- -1",
@@ -709,12 +969,16 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ ${3:valide}                           │ booléen                │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(fn) vérif. si une chaîne est composée uniquement par des lettres alphabétiques (v.2)"
+			""
+		],
+		"description": "(fn) vérif. si une chaîne est composée uniquement par des lettres alphabétiques (v.2)"
 	},
-	"vérif. chaîne numérique":{
-		"prefix": ["x-num"],
-		"body": ["fonction ${1:est_numérique}(${2:ch}: chaîne) : booléen",
+	"vérif. chaîne numérique": {
+		"prefix": [
+			"x-num"
+		],
+		"body": [
+			"fonction ${1:est_numérique}(${2:ch}: chaîne) : booléen",
 			"début",
 			"\tnb_chiffres <-- 0",
 			"\tpour i de 0 à long(${2:ch}) - 1 faire",
@@ -736,14 +1000,19 @@
 			"├──────────────────────────────────┼────────────────────────┤",
 			"│ i, nb_chiffres                   │ entier                 │",
 			"└──────────────────────────────────┴────────────────────────┘",
-			""],			
-		"description":"(fn) vérif. si une chaîne est composée uniquement par des chiffres"
+			""
+		],
+		"description": "(fn) vérif. si une chaîne est composée uniquement par des chiffres"
 	},
-	"fragment de code (py ou js)":{
-		"prefix": ["x-code-source"],
-		"body": ["```${1|python,javascript|}",
-		"$0",
-		"```"],			
-		"description":"ajout d'un fragment de code en python ou en javascript."
+	"fragment de code (py ou js)": {
+		"prefix": [
+			"x-code-source"
+		],
+		"body": [
+			"```${1|python,javascript|}",
+			"$0",
+			"```"
+		],
+		"description": "ajout d'un fragment de code en python ou en javascript."
 	}
 }
