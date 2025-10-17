@@ -58,7 +58,7 @@
 				},
 				{
 					"name":"support.function.algo",
-					"match": "(?i)\\b(aléa|arrondi|chr|convch|écrire|écrire_nl|effacer|ent|estnum|fermer|fin_fichier|lire|lire_ligne|long|majus|ord|ouvrir|pointer|pos|racine_carrée|sous_chaîne|valeur)\\b"
+					"match": "(?i)\\b(aléa|arrondi|chr|convch|écrire|écrire_nl|effacer|ent|estnum|fermer|fin_fichier|lire|lire_ligne|long|majus|ord|ouvrir|pos|racine_carrée|sous_chaîne|valeur)\\b"
 				},
 				{
 					"name":"entity.name.type.algo",
@@ -103,7 +103,7 @@
 					"name": "keyword.operator.assignment.algo"
 				},
 				{
-					"match": "(<|>|≥|≤|=|≠)",
+					"match": "(<|>|≥|≤|=|≠|∈)",
 					"name": "keyword.operator.comparison.algo"
 				},
 				{
