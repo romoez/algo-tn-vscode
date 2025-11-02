@@ -2,8 +2,8 @@
     "name": "algorithme-tn",
     "displayName": "Algorithme-tn",
     "description": "Pseudocode conforme aux programmes du lycée en Tunisie",
-    "version": "0.0.5",
-	"icon": "images/icon.png",
+    "version": "0.0.6",
+    "icon": "images/icon.png",
     "engines": {
         "vscode": "^1.38.0"
     },
@@ -12,29 +12,44 @@
         "Programming Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "algo",
-            "aliases": ["Algorithme en Pseudocode", "algo"],
-            "extensions": [".algo",".alg"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "algo",
-            "scopeName": "source.algo",
-            "path": "./syntaxes/algo.tmLanguage.json",
-            "embeddedLanguages": {
-                "meta.embedded.block.python": "python",
-                "meta.embedded.block.javascript": "javascript"
-              }            
-        }],
-        "snippets": [{
+        "languages": [
+            {
+                "id": "algo",
+                "aliases": [
+                    "Algorithme en Pseudocode",
+                    "algo"
+                ],
+                "extensions": [
+                    ".algo",
+                    ".alg"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
                 "language": "algo",
-                "path": "./snippets/snippets.json"
-
-        }]
+                "scopeName": "source.algo",
+                "path": "./syntaxes/algo.tmLanguage.json",
+                "embeddedLanguages": {
+                    "meta.embedded.block.python": "python",
+                    "meta.embedded.block.javascript": "javascript"
+                }
+            }
+        ],
+        "snippets": [
+            {
+                "language": "algo",
+                "path": "./snippets/base.json"
+            },
+            {
+                "language": "algo",
+                "path": "./snippets/x-snippets.json"
+            }
+        ]
     },
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/romoez/algo-tn-vscode.git"
-	}
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/romoez/algo-tn-vscode.git"
+    }
 }
