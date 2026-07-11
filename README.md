@@ -49,6 +49,22 @@ python tools/algotn.py mon_algo.algo
 Voir [tools/README.md](tools/README.md) pour la liste des structures supportées
 (fonctions, procédures avec `@`, tableaux de déclaration dessinés, etc.).
 
+## Tableaux de déclaration (TDO / TDOG / TDOL)
+
+- **Éditeur de tableaux** (`Ctrl+Alt+T`, ou l'icône tableau en haut de
+  l'éditeur) : les tableaux du fichier s'ouvrent dans un onglet avec des
+  champs de saisie — ajouter/supprimer/modifier des objets, choisir le type
+  dans une liste, puis « Appliquer » redessine les tableaux dans le fichier.
+  Les objets utilisés dans le code mais absents des tableaux sont **détectés
+  automatiquement** et déclarables en un clic.
+- **Ajout rapide** (`Ctrl+Alt+O`) : ajoute une ligne bien alignée au tableau
+  le plus proche du curseur (nom + type choisis dans une boîte de dialogue).
+- **Vérification des types** : un type non défini dans un tableau (ex :
+  `entierr`) est souligné en rouge avec la liste des types valides.
+- Snippets `tdog` (objets globaux du programme principal) et `tdol` (objets
+  locaux d'un sous-programme) ; les snippets `algorithme`, `fonction` et
+  `procédure` génèrent maintenant leur tableau de déclaration.
+
 ## Coloration Syntaxique
 
 ### Commentaires

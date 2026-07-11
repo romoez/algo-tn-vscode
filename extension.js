@@ -1,6 +1,7 @@
 const vscode = require('vscode');
 const path = require('path');
 const { execFile } = require('child_process');
+const { ouvrirEditeur, sansAccents } = require('./tableEditor');
 
 // Vérifie qu'un interpréteur répond à --version (l'alias Microsoft Store
 // de python.exe sous Windows échoue ici, ce qui est le comportement voulu).
@@ -23,7 +24,9 @@ async function trouverPython() {
 }
 
 function activate(context) {
-    // Exécuter le fichier .algo courant avec le transpileur tools/algotn.py
+    // ------------------------------------------------------------------
+    // ▶ Exécuter le fichier .algo courant (transpileur tools/algotn.py)
+    // ------------------------------------------------------------------
     context.subscriptions.push(
         vscode.commands.registerCommand('algo.run', async () => {
             const editor = vscode.window.activeTextEditor;
@@ -57,6 +60,151 @@ function activate(context) {
             term.sendText(`${python} "${transpiler}" "${editor.document.fileName}"`);
         })
     );
+
+    // ------------------------------------------------------------------
+    // Éditeur de tableaux de déclaration dans un onglet
+    // ------------------------------------------------------------------
+    context.subscriptions.push(
+        vscode.commands.registerCommand('algo.editerTables',
+            () => ouvrirEditeur(context))
+    );
+
+    // ------------------------------------------------------------------
+    // Ajout rapide d'un objet au tableau le plus proche du curseur
+    // ------------------------------------------------------------------
+    const NATURES = ['entier', 'réel', 'booléen', 'caractère', 'chaîne',
+        'fonction', 'procédure', 'fichier texte'];
+    const COL1 = 36;
+    const COL2 = 26;
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('algo.ajouterObjet', async () => {
+            const editor = vscode.window.activeTextEditor;
+            if (!editor || editor.document.languageId !== 'algo') {
+                return;
+            }
+            const nom = await vscode.window.showInputBox({
+                prompt: "Nom de l'objet (ex : n, moyenne, t)",
+                validateInput: v =>
+                    /^[\wÀ-ſ@]+(\s*,\s*[\wÀ-ſ@]+)*$/.test(v.trim()) ? null : 'Nom invalide',
+            });
+            if (!nom) {
+                return;
+            }
+            let type = await vscode.window.showQuickPick(
+                [...NATURES, 'tableau de N type…'],
+                { placeHolder: "Nature / type de l'objet" });
+            if (!type) {
+                return;
+            }
+            if (type.startsWith('tableau')) {
+                type = await vscode.window.showInputBox({
+                    prompt: 'Type tableau', value: 'tableau de 20 entier',
+                });
+                if (!type) {
+                    return;
+                }
+            }
+
+            const doc = editor.document;
+            const cur = editor.selection.active.line;
+            let bas = -1;
+            for (let d = 0; d < doc.lineCount && bas < 0; d++) {
+                for (const i of [cur + d, cur - d]) {
+                    if (i >= 0 && i < doc.lineCount
+                        && doc.lineAt(i).text.trim().startsWith('└')) {
+                        bas = i;
+                        break;
+                    }
+                }
+            }
+
+            const pad = (s, w) => ' ' + s + ' '.repeat(Math.max(1, w - s.length - 1));
+
+            if (bas < 0) {
+                const table = [
+                    '┌' + '─'.repeat(COL1) + '┬' + '─'.repeat(COL2) + '┐',
+                    '│' + pad('              Objet', COL1) + '│' + pad('     Nature / Type', COL2) + '│',
+                    '├' + '─'.repeat(COL1) + '┼' + '─'.repeat(COL2) + '┤',
+                    '│' + pad(nom, COL1) + '│' + pad(type, COL2) + '│',
+                    '└' + '─'.repeat(COL1) + '┴' + '─'.repeat(COL2) + '┘',
+                ].join('\n');
+                await editor.edit(e =>
+                    e.insert(new vscode.Position(cur, 0), table + '\n'));
+                return;
+            }
+
+            const bordure = doc.lineAt(bas).text;
+            const colonnes = bordure.trim().slice(1, -1).split('┴');
+            const w1 = colonnes[0].length;
+            const w2 = colonnes.length > 1 ? colonnes[1].length : COL2;
+            const retrait = bordure.match(/^\s*/)[0];
+            const sep = retrait + '├' + '─'.repeat(w1) + '┼' + '─'.repeat(w2) + '┤';
+            const rang = retrait + '│' + pad(nom, w1) + '│' + pad(type, w2) + '│';
+            await editor.edit(e =>
+                e.insert(new vscode.Position(bas, 0), sep + '\n' + rang + '\n'));
+        })
+    );
+
+    // ------------------------------------------------------------------
+    // Diagnostics : types non définis dans les tableaux de déclaration
+    // ------------------------------------------------------------------
+    const diags = vscode.languages.createDiagnosticCollection('algo');
+    context.subscriptions.push(diags);
+
+    function verifier(doc) {
+        if (doc.languageId !== 'algo') {
+            return;
+        }
+        const lignes = doc.getText().split(/\r?\n/);
+        const nouveauxTypes = new Set();
+        for (const l of lignes) {
+            const m = l.match(/([\wÀ-ſ]+)\s*=\s*(tableau\s+de|enregistrement)/i);
+            if (m) {
+                nouveauxTypes.add(sansAccents(m[1]).toLowerCase());
+            }
+        }
+        const liste = [];
+        lignes.forEach((l, i) => {
+            const m = l.match(/^\s*│([^│]+)│([^│]+)│\s*$/);
+            if (!m) {
+                return;
+            }
+            const objet = m[1].trim();
+            const type = m[2].trim();
+            if (!objet || !type || (/objet/i.test(objet) && /nature|type/i.test(type))) {
+                return;
+            }
+            const t = sansAccents(type).toLowerCase().replace(/\s+/g, ' ');
+            const ok = ['entier', 'reel', 'booleen', 'caractere', 'chaine',
+                'fonction', 'procedure'].includes(t)
+                || /^tableau de \d+ (entier|reel|booleen|caractere|chaine)$/.test(t)
+                || /^fichier/.test(t)
+                || /^constante/.test(t)
+                || nouveauxTypes.has(t);
+            if (!ok) {
+                const debut = l.indexOf('│', l.indexOf('│') + 1) + 1 + m[2].search(/\S/);
+                liste.push(new vscode.Diagnostic(
+                    new vscode.Range(i, debut, i, debut + type.length),
+                    `Type non défini : « ${type} ». Types valides : entier, réel, `
+                    + 'booléen, caractère, chaîne, fonction, procédure, '
+                    + 'tableau de N type, fichier, ou un type déclaré dans le TDNT.',
+                    vscode.DiagnosticSeverity.Error));
+            }
+        });
+        diags.set(doc.uri, liste);
+    }
+
+    let minuterie;
+    context.subscriptions.push(
+        vscode.workspace.onDidOpenTextDocument(verifier),
+        vscode.workspace.onDidChangeTextDocument(e => {
+            clearTimeout(minuterie);
+            minuterie = setTimeout(() => verifier(e.document), 300);
+        }),
+        vscode.workspace.onDidCloseTextDocument(doc => diags.delete(doc.uri))
+    );
+    vscode.workspace.textDocuments.forEach(verifier);
 }
 
 function deactivate() { }

@@ -22,6 +22,17 @@
                 "title": "Exécuter l'algorithme",
                 "category": "Algorithme",
                 "icon": "$(play)"
+            },
+            {
+                "command": "algo.editerTables",
+                "title": "Éditer les tableaux de déclaration (TDO)",
+                "category": "Algorithme",
+                "icon": "$(table)"
+            },
+            {
+                "command": "algo.ajouterObjet",
+                "title": "Ajouter un objet au TDO",
+                "category": "Algorithme"
             }
         ],
         "menus": {
@@ -29,7 +40,12 @@
                 {
                     "command": "algo.run",
                     "when": "editorLangId == algo",
-                    "group": "navigation"
+                    "group": "navigation@1"
+                },
+                {
+                    "command": "algo.editerTables",
+                    "when": "editorLangId == algo",
+                    "group": "navigation@2"
                 }
             ],
             "editor/context": [
@@ -37,6 +53,16 @@
                     "command": "algo.run",
                     "when": "editorLangId == algo",
                     "group": "algo@1"
+                },
+                {
+                    "command": "algo.editerTables",
+                    "when": "editorLangId == algo",
+                    "group": "algo@2"
+                },
+                {
+                    "command": "algo.ajouterObjet",
+                    "when": "editorLangId == algo",
+                    "group": "algo@3"
                 }
             ]
         },
@@ -44,6 +70,16 @@
             {
                 "command": "algo.run",
                 "key": "ctrl+f5",
+                "when": "editorLangId == algo"
+            },
+            {
+                "command": "algo.editerTables",
+                "key": "ctrl+alt+t",
+                "when": "editorLangId == algo"
+            },
+            {
+                "command": "algo.ajouterObjet",
+                "key": "ctrl+alt+o",
                 "when": "editorLangId == algo"
             }
         ],
