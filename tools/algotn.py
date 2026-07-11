@@ -156,6 +156,21 @@ def strip_accents(s: str) -> str:
                    if unicodedata.category(c) != "Mn")
 
 
+def parse_param(p: str):
+    """Paramètre formel : 'n : entier', 'entier n', '@n : entier', 'var n : entier'
+    -> (nom, type ou None, passage_par_variable)"""
+    p = p.strip()
+    ref = "@" in p or bool(re.match(r"(?i)var\s", p))
+    p = re.sub(r"(?i)^var\s+", "", p).replace("@", "").strip()
+    if ":" in p:
+        name, typ = p.split(":", 1)
+        return strip_accents(name).lower().strip(), typ.strip(), ref
+    words = p.split()
+    if len(words) == 2 and strip_accents(words[0]).lower() in DEFAULTS:
+        return strip_accents(words[1]).lower().strip(), words[0], ref
+    return strip_accents(p).lower().strip(), None, ref
+
+
 class TranspileError(Exception):
     pass
 
@@ -206,13 +221,20 @@ class Transpiler:
                 self.types[n] = elem
                 init = f"{n} = _tableau({size}, {DEFAULTS[elem]})"
                 if self._registering:
-                    self._pending_arrays.append(init)
+                    self._pending_inits.append(init)
                 elif emit_arrays:
                     self.emit(init)
             return
         if t in DEFAULTS:
             for n in names:
                 self.types[n] = t
+                if n in self.procs:
+                    continue  # variable résultat portant le nom de la fonction
+                init = f"{n} = {DEFAULTS[t]}"
+                if self._registering:
+                    self._pending_inits.append(init)
+                elif emit_arrays:
+                    self.emit(init)
             return
         if t in ("fonction", "procedure") or t.startswith("fichier") \
                 or t.startswith("constante"):
@@ -309,15 +331,9 @@ class Transpiler:
         source = re.sub(r"/\*.*?\*/", "", source, flags=re.S)
         self.out = []
 
-        # passe 1 : tableaux de déclaration (peuvent suivre le code) et
-        # signatures des sous-programmes (@ = passage par variable)
+        # passe 1a : signatures des sous-programmes (@ = passage par variable)
         self.procs = {}
-        self._registering = True
-        self._pending_arrays = []
-        for num, l in enumerate(source.splitlines(), 1):
-            if l.strip().startswith("│"):
-                self._table_row(self._shelve_strings(l.strip()), num)
-                continue
+        for l in source.splitlines():
             m = re.match(
                 r"(?i)^\s*(fonction|fn|procedure|procédure|proc)\s+([\wÀ-ſ]+)\s*\((.*)\)",
                 l)
@@ -327,19 +343,23 @@ class Transpiler:
                         else "procedure")
                 refs, params = [], []
                 for p in re.split(r"[;,]", m.group(3)):
-                    p = p.strip()
-                    if not p or ":" in p and not p.split(":")[0].strip():
+                    if not p.strip():
                         continue
-                    pname = p.split(":")[0].strip()
-                    refs.append(pname.startswith("@")
-                                or bool(re.match(r"(?i)var\s", p)))
-                    params.append(strip_accents(pname).lower()
-                                  .lstrip("@").replace("var ", "").strip())
+                    name, _typ, ref = parse_param(p)
+                    params.append(name)
+                    refs.append(ref)
                 self.procs[strip_accents(m.group(2)).lower()] = {
                     "kind": kind, "refs": refs, "params": params}
+
+        # passe 1b : tableaux de déclaration dessinés (peuvent suivre le code)
+        self._registering = True
+        self._pending_inits = []
+        for num, l in enumerate(source.splitlines(), 1):
+            if l.strip().startswith("│"):
+                self._table_row(self._shelve_strings(l.strip()), num)
         self._registering = False
-        # les tableaux déclarés dans un TDO/TDOG/TDOL sont initialisés en tête
-        self.out.extend(self._pending_arrays)
+        # les objets déclarés dans un TDO/TDOG/TDOL sont initialisés en tête
+        self.out.extend(self._pending_inits)
 
         for num, raw in enumerate(source.splitlines(), 1):
             line = self._shelve_strings(raw)
@@ -365,15 +385,12 @@ class Transpiler:
                 name = strip_accents(m.group(2)).lower()
                 params = []
                 for p in re.split(r"[;,]", m.group(3)):
-                    p = p.strip()
-                    if not p:
+                    if not p.strip():
                         continue
-                    p = re.sub(r"(?i)^var\s+", "", p).lstrip("@")
-                    pname = p.split(":")[0].strip()
-                    params.append(strip_accents(pname).lower())
-                    if ":" in p:
-                        self._declare([pname], p.split(":", 1)[1], num,
-                                      emit_arrays=False)
+                    pname, ptyp, _ = parse_param(p)
+                    params.append(pname)
+                    if ptyp:
+                        self._declare([pname], ptyp, num, emit_arrays=False)
                 self.in_def = True
                 self._cur_def = self.procs.get(name)
                 self._saved_indent = self.indent
@@ -436,12 +453,20 @@ class Transpiler:
                 continue
             m = re.match(r"sinon\s+si\s+(.*?)\s+alors\s*$", norm)
             if m:
+                if not self.stack or self.stack[-1] != "si":
+                    raise TranspileError(
+                        f"ligne {num}: « sinon si » sans « si » ouvert "
+                        "(fin_si placé trop tôt ?)")
                 cond = self._cut(line, r"(?i)^sinon\s+si\s+", r"(?i)\s+alors\s*$")
                 self.indent -= 1
                 self.emit(f"elif {self.expr(cond)}:")
                 self.indent += 1
                 continue
             if norm in ("sinon", "sinon:"):
+                if not self.stack or self.stack[-1] != "si":
+                    raise TranspileError(
+                        f"ligne {num}: « sinon » sans « si » ouvert "
+                        "(fin_si placé trop tôt ?)")
                 self.indent -= 1
                 self.emit("else:")
                 self.indent += 1
@@ -460,12 +485,14 @@ class Transpiler:
                     line.strip())
                 var, start, stop, step = mo.group(1), mo.group(2), mo.group(3), mo.group(4)
                 start, stop = self.expr(start, cond=False), self.expr(stop, cond=False)
+                # bornes incluses (contrairement à range), et int() car une
+                # borne peut être réelle (ex : pour i de 2 à racine_carrée(n))
                 if step:
                     step = self.expr(step, cond=False)
-                    limit = f"({stop}) + (1 if ({step}) > 0 else -1)"
-                    self.emit(f"for {var} in range({start}, {limit}, {step}):")
+                    limit = f"int({stop}) + (1 if ({step}) > 0 else -1)"
+                    self.emit(f"for {var} in range(int({start}), {limit}, int({step})):")
                 else:
-                    self.emit(f"for {var} in range({start}, ({stop}) + 1):")
+                    self.emit(f"for {var} in range(int({start}), int({stop}) + 1):")
                 self.stack.append("pour")
                 self.indent += 1
                 continue
@@ -640,8 +667,17 @@ def main():
         with open(out_file, "w", encoding="utf-8") as f:
             f.write(py)
         print(f"Python généré → {out_file}")
+
+    try:
+        code = compile(py, path, "exec")
+    except SyntaxError as e:
+        print("Erreur de syntaxe — cette ligne n'a pas été comprise :")
+        print(f"    {(e.text or '').strip()}")
+        print("Vérifiez l'orthographe des mots-clés (algorithme, si, pour, "
+              "fonction, procédure...) et la structure de la ligne.")
+        sys.exit(1)
     if run:
-        exec(compile(py, path, "exec"), {"__name__": "__main__"})
+        exec(code, {"__name__": "__main__"})
 
 
 if __name__ == "__main__":
