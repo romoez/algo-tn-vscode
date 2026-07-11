@@ -8,6 +8,7 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 ![algorithme-tn](https://github.com/romoez/algo-tn-vscode/raw/main/images/algorithme-tn.gif)
 
 -   [Algorithme en Pseudocode](#algorithme-en-pseudocode)
+    -   [Exécution des algorithmes](#exécution-des-algorithmes)
     -   [Coloration Syntaxique](#coloration-syntaxique)
         -   [Commentaires](#commentaires)
         -   [Mots clés](#mots-clés)
@@ -30,6 +31,18 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
         -   [0.0.3](#003)
         -   [0.0.2](#002)
         -   [0.0.1](#001)
+
+## Exécution des algorithmes
+
+Le dossier [`tools/`](tools/) contient `algotn.py`, un transpileur qui traduit
+les fichiers `.algo` en Python puis les exécute dans le terminal (Python 3.10+,
+aucune dépendance) :
+
+```console
+python tools/algotn.py mon_algo.algo
+```
+
+Voir [tools/README.md](tools/README.md) pour la liste des structures supportées.
 
 ## Coloration Syntaxique
 

@@ -1,0 +1,42 @@
+algorithme exemple
+// Exemple : moyenne d'un tableau + test de parité + factorielle
+début
+    n : entier
+    t : tableau de 10 réel
+    s, f : réel
+
+    écrire("Combien de notes ? ")
+    lire(n)
+
+    /* saisie contrôlée : n doit être entre 1 et 10 */
+    tant que (n < 1) ou (n > 10) faire
+        écrire("Erreur, refaire : ")
+        lire(n)
+    fin_tant_que
+
+    s ← 0
+    pour i de 1 à n faire
+        écrire("Note n°", i, " : ")
+        lire(t[i])
+        s ← s + t[i]
+    fin_pour
+
+    écrire("Moyenne = ", arrondi(s / n, 2))
+
+    si s mod 2 = 0 alors
+        écrire("La somme est paire")
+    sinon
+        écrire("La somme est impaire")
+    fin_si
+
+    // factorielle de n avec répéter
+    f ← 1
+    i ← 0
+    répéter
+        i ← i + 1
+        f ← f * i
+    jusqu'à i ≥ n
+    écrire(n, "! = ", f)
+
+    écrire("racine_carrée(", n, ") = ", arrondi(racine_carrée(n), 3))
+fin
