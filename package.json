@@ -11,7 +11,52 @@
     "categories": [
         "Programming Languages"
     ],
+    "main": "./extension.js",
+    "activationEvents": [
+        "onLanguage:algo"
+    ],
     "contributes": {
+        "commands": [
+            {
+                "command": "algo.run",
+                "title": "Exécuter l'algorithme",
+                "category": "Algorithme",
+                "icon": "$(play)"
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "command": "algo.run",
+                    "when": "editorLangId == algo",
+                    "group": "navigation"
+                }
+            ],
+            "editor/context": [
+                {
+                    "command": "algo.run",
+                    "when": "editorLangId == algo",
+                    "group": "algo@1"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "command": "algo.run",
+                "key": "ctrl+f5",
+                "when": "editorLangId == algo"
+            }
+        ],
+        "configuration": {
+            "title": "Algorithme-tn",
+            "properties": {
+                "algo.pythonPath": {
+                    "type": "string",
+                    "default": "python",
+                    "description": "Interpréteur Python utilisé pour exécuter les fichiers .algo (ex : python, python3, py)."
+                }
+            }
+        },
         "languages": [
             {
                 "id": "algo",
