@@ -1,0 +1,50 @@
+algorithme Premier_Sur
+début
+    lire(n)
+    si premier(n) alors
+        écrire("Le nombre est premier")
+    sinon
+        écrire("Le nombre n'est pas premier")
+    fin_si
+    a ← 3
+    b ← 7
+    permut(@a, @b)
+    écrire("après permut : a = ", a, ", b = ", b)
+fin
+
+┌────────────────────────────────────┬──────────────────────────┐
+│               Objet                │      Nature / Type       │
+├────────────────────────────────────┼──────────────────────────┤
+│ n                                  │ entier                   │
+├────────────────────────────────────┼──────────────────────────┤
+│ a, b                               │ entier                   │
+├────────────────────────────────────┼──────────────────────────┤
+│ premier                            │ fonction                 │
+├────────────────────────────────────┼──────────────────────────┤
+│ permut                             │ procédure                │
+└────────────────────────────────────┴──────────────────────────┘
+
+fonction premier(n : entier) : booléen
+début
+    si n < 2 alors
+        retourner faux
+    fin_si
+    pour i de 2 à n - 1 faire
+        si n mod i = 0 alors
+            retourner faux
+        fin_si
+    fin_pour
+    retourner vrai
+fin
+
+procédure permut(@x : entier ; @y : entier)
+début
+    tmp ← x
+    x ← y
+    y ← tmp
+fin
+┌────────────────────────────────────┬──────────────────────────┐
+│               Objet                │      Nature / Type       │
+├────────────────────────────────────┼──────────────────────────┤
+│ tmp                                │ entier                   │
+└────────────────────────────────────┴──────────────────────────┘

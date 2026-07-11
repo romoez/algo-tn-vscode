@@ -34,15 +34,20 @@ Une extension qui fournit la coloration syntaxique et des extraits de code (snip
 
 ## Exécution des algorithmes
 
-Le dossier [`tools/`](tools/) contient `algotn.py`, un transpileur qui traduit
-les fichiers `.algo` en Python puis les exécute dans le terminal (Python 3.10+,
-aucune dépendance) :
+Cliquez sur le bouton **▶ Exécuter l'algorithme** en haut de l'éditeur (ou
+`Ctrl+F5`) : le fichier `.algo` est traduit en Python puis exécuté dans le
+terminal intégré. Seul **Python 3.10+** est requis ; s'il est introuvable,
+l'extension propose de le télécharger.
+
+En dehors de VSCode, le transpileur du dossier [`tools/`](tools/) s'utilise
+directement :
 
 ```console
 python tools/algotn.py mon_algo.algo
 ```
 
-Voir [tools/README.md](tools/README.md) pour la liste des structures supportées.
+Voir [tools/README.md](tools/README.md) pour la liste des structures supportées
+(fonctions, procédures avec `@`, tableaux de déclaration dessinés, etc.).
 
 ## Coloration Syntaxique
 

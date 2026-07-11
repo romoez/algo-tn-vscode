@@ -72,6 +72,14 @@ def _lire_reel():
 def _lire_chaine():
     return input()
 
+def _lire_caractere():
+    # un caractère = une chaîne d'un seul élément
+    while True:
+        s = _input()
+        if len(s) == 1:
+            return s
+        print("Valeur invalide, un seul caractère est attendu. Refaire : ", end="")
+
 def _lire_booleen():
     while True:
         s = _input().lower()
@@ -156,11 +164,19 @@ class Transpiler:
     def __init__(self):
         self.out = []
         self.indent = 0
-        # pile des blocs ouverts : 'si', 'pour', 'tant_que', 'repeter', 'selon'
+        # pile des blocs ouverts : 'si', 'pour', 'tant_que', 'repeter',
+        # 'selon', 'sousprog' (fonction/procédure)
         self.stack = []
         self.strings = []
         # table des symboles issue du TDO : nom (minuscules) -> type déclaré
         self.types = {}
+        # nouveaux types (TDNT) : nom -> ("tableau", taille, type_éléments)
+        self.newtypes = {}
+        # sous-programmes : le code des fonctions/procédures est émis à part
+        self.defs = []
+        self.in_def = False
+        self.procs = {}
+        self._cur_def = None
 
     # -- protection des chaînes littérales ----------------------------------
     def _shelve_strings(self, line: str) -> str:
@@ -173,9 +189,82 @@ class Transpiler:
         return re.sub(r"\x00(\d+)\x00",
                       lambda m: self.strings[int(m.group(1))], line)
 
+    # -- déclarations (TDO / TDOG / TDOL / TDNT) -------------------------------
+    def _declare(self, names, typ_raw, num, emit_arrays=True):
+        t = re.sub(r"\s+", " ", strip_accents(str(typ_raw)).lower().strip())
+        names = [strip_accents(n).lower().strip().lstrip("@")
+                 for n in names if n.strip()]
+        if t in self.newtypes:
+            t = self.newtypes[t]
+        m = re.match(r"tableau de (\w+) ([\wÀ-ſ ]+)$", t)
+        if m:
+            size, elem = m.group(1), m.group(2).strip()
+            if elem not in DEFAULTS:
+                raise TranspileError(
+                    f"ligne {num}: type non défini « {typ_raw.strip()} »")
+            for n in names:
+                self.types[n] = elem
+                init = f"{n} = _tableau({size}, {DEFAULTS[elem]})"
+                if self._registering:
+                    self._pending_arrays.append(init)
+                elif emit_arrays:
+                    self.emit(init)
+            return
+        if t in DEFAULTS:
+            for n in names:
+                self.types[n] = t
+            return
+        if t in ("fonction", "procedure") or t.startswith("fichier") \
+                or t.startswith("constante"):
+            return  # déclarés dans le TDO, définis ailleurs
+        raise TranspileError(
+            f"ligne {num}: type non défini « {typ_raw.strip()} » — types valides : "
+            "entier, réel, booléen, caractère, chaîne, tableau de N type, "
+            "ou un nouveau type du TDNT")
+
+    def _table_row(self, line: str, num: int):
+        cells = [self._unshelve_strings(c).strip()
+                 for c in line.strip().strip("│").split("│")]
+        if not any(cells):
+            return
+        joined = strip_accents(" ".join(cells)).lower()
+        # lignes d'en-tête / de titre du tableau
+        if ("objet" in joined and ("nature" in joined or "type" in joined)) \
+                or "nouveaux types" in joined or "declaration" in joined:
+            return
+        # TDNT : nom = tableau de N type
+        m = re.match(r"(?i)^([\wÀ-ſ]+)\s*=\s*(tableau\s+de\s+.+)$", cells[0])
+        if m:
+            self.newtypes[strip_accents(m.group(1)).lower()] = re.sub(
+                r"\s+", " ", strip_accents(m.group(2)).lower().strip())
+            return
+        # TDO / TDOG / TDOL : objet(s) | type
+        if len(cells) >= 2 and cells[0] and cells[1]:
+            self._declare(cells[0].split(","), cells[1], num)
+            return
+        # enregistrements et autres lignes : non supportés, ignorés
+
+    def _split_args(self, s: str):
+        args, depth, cur = [], 0, ""
+        for c in s:
+            if c in "([":
+                depth += 1
+            elif c in ")]":
+                depth -= 1
+            if c == "," and depth == 0:
+                args.append(cur)
+                cur = ""
+            else:
+                cur += c
+        if cur.strip():
+            args.append(cur)
+        return args
+
     # -- traduction des expressions ------------------------------------------
     def expr(self, e: str, cond: bool = True) -> str:
         e = e.strip()
+        # @x (passage par variable) : sans objet côté Python
+        e = e.replace("@", "")
         # opérateurs symboliques
         e = e.replace("←", "=").replace("<-", "=")
         e = e.replace("≠", "!=").replace("≤", "<=").replace("≥", ">=")
@@ -205,7 +294,8 @@ class Transpiler:
 
     # -- émission -------------------------------------------------------------
     def emit(self, code: str):
-        self.out.append("    " * self.indent + self._unshelve_strings(code))
+        target = self.defs if self.in_def else self.out
+        target.append("    " * self.indent + self._unshelve_strings(code))
 
     def close(self, kinds, mot: str, num: int):
         if not self.stack or self.stack[-1] not in kinds:
@@ -217,7 +307,39 @@ class Transpiler:
     def transpile(self, source: str) -> str:
         # commentaires /* ... */ (multi-lignes)
         source = re.sub(r"/\*.*?\*/", "", source, flags=re.S)
-        self.out = [RUNTIME]
+        self.out = []
+
+        # passe 1 : tableaux de déclaration (peuvent suivre le code) et
+        # signatures des sous-programmes (@ = passage par variable)
+        self.procs = {}
+        self._registering = True
+        self._pending_arrays = []
+        for num, l in enumerate(source.splitlines(), 1):
+            if l.strip().startswith("│"):
+                self._table_row(self._shelve_strings(l.strip()), num)
+                continue
+            m = re.match(
+                r"(?i)^\s*(fonction|fn|procedure|procédure|proc)\s+([\wÀ-ſ]+)\s*\((.*)\)",
+                l)
+            if m:
+                kind = ("fonction"
+                        if strip_accents(m.group(1)).lower() in ("fonction", "fn")
+                        else "procedure")
+                refs, params = [], []
+                for p in re.split(r"[;,]", m.group(3)):
+                    p = p.strip()
+                    if not p or ":" in p and not p.split(":")[0].strip():
+                        continue
+                    pname = p.split(":")[0].strip()
+                    refs.append(pname.startswith("@")
+                                or bool(re.match(r"(?i)var\s", p)))
+                    params.append(strip_accents(pname).lower()
+                                  .lstrip("@").replace("var ", "").strip())
+                self.procs[strip_accents(m.group(2)).lower()] = {
+                    "kind": kind, "refs": refs, "params": params}
+        self._registering = False
+        # les tableaux déclarés dans un TDO/TDOG/TDOL sont initialisés en tête
+        self.out.extend(self._pending_arrays)
 
         for num, raw in enumerate(source.splitlines(), 1):
             line = self._shelve_strings(raw)
@@ -225,6 +347,41 @@ class Transpiler:
             if not line:
                 continue
             norm = strip_accents(line).lower()
+
+            # --- tableaux dessinés : TDO / TDOG / TDOL / TDNT -------------------
+            if re.match(r"^[┌├└┬┴┼─]", line):
+                continue                       # bordure du tableau
+            if line.startswith("│"):
+                continue                       # ligne déjà traitée en passe 1
+
+            # --- fonction / procédure -------------------------------------------
+            m = re.match(
+                r"(?i)^(fonction|fn|procedure|procédure|proc)\s+([\wÀ-ſ]+)\s*\((.*)\)\s*(?::\s*([\wÀ-ſ ]+))?\s*$",
+                line.strip())
+            if m and strip_accents(m.group(1)).lower() in ("fonction", "fn", "procedure", "proc"):
+                if self.in_def:
+                    raise TranspileError(
+                        f"ligne {num}: sous-programme imbriqué non supporté")
+                name = strip_accents(m.group(2)).lower()
+                params = []
+                for p in re.split(r"[;,]", m.group(3)):
+                    p = p.strip()
+                    if not p:
+                        continue
+                    p = re.sub(r"(?i)^var\s+", "", p).lstrip("@")
+                    pname = p.split(":")[0].strip()
+                    params.append(strip_accents(pname).lower())
+                    if ":" in p:
+                        self._declare([pname], p.split(":", 1)[1], num,
+                                      emit_arrays=False)
+                self.in_def = True
+                self._cur_def = self.procs.get(name)
+                self._saved_indent = self.indent
+                self.indent = 0
+                self.emit(f"def {name}({', '.join(params)}):")
+                self.indent = 1
+                self.stack.append("sousprog")
+                continue
 
             # --- en-tête / structure ------------------------------------------
             if re.match(r"(algorithme|programme)\b", norm):
@@ -235,28 +392,36 @@ class Transpiler:
             if re.match(r"fin\s*$", norm) or re.match(r"fin\s+\w+\s*$", norm) \
                     and not norm.startswith(("fin_", "fin si", "fin pour",
                                              "fin tant", "fin selon")):
+                if self.stack and self.stack[-1] == "sousprog":
+                    self.stack.pop()
+                    info = self._cur_def
+                    # procédure : les paramètres @ sont renvoyés puis réaffectés
+                    # à l'appel (émulation du passage par variable)
+                    if info and info["kind"] == "procedure" and any(info["refs"]):
+                        refp = [p for p, r in zip(info["params"], info["refs"]) if r]
+                        self.indent = 1
+                        self.emit(f"return {', '.join(refp)}")
+                    self.in_def = False
+                    self.indent = self._saved_indent
+                    continue
                 if self.stack:
                     raise TranspileError(
                         f"ligne {num}: « fin » atteint mais bloc « {self.stack[-1]} » non fermé")
                 continue
 
             # --- déclarations (TDO) --------------------------------------------
-            m = re.match(r"(?i)(?:var\s+)?([\wÀ-ſ, ]+?)\s*:\s*tableau\s+de\s+(\w+)\s+([\wÀ-ſ]+)",
-                         line.strip())
-            if m:
-                names = [n.strip() for n in m.group(1).split(",")]
-                size, typ = m.group(2), strip_accents(m.group(3)).lower()
-                default = DEFAULTS.get(typ, "0")
-                for n in names:
-                    self.types[strip_accents(n).lower()] = typ
-                    self.emit(f"{n} = _tableau({size}, {default})")
+            m = re.match(
+                r"(?i)^(?:var\s+)?([@\wÀ-ſ]+(?:\s*,\s*[@\wÀ-ſ]+)*)\s*:\s*([\wÀ-ſ][\wÀ-ſ' .]*?)\s*$",
+                line.strip())
+            if m and not (self.stack and self.stack[-1] == "selon") \
+                    and not re.match(r"^\d", m.group(1)):
+                # déclaration (TDO) : type validé, mémorisé pour lire()
+                self._declare(m.group(1).split(","), m.group(2), num)
                 continue
-            m = re.match(r"(?i)(?:var\s+)?([\wÀ-ſ, ]+?)\s*:\s*([\wÀ-ſ]+)\s*$", line.strip())
-            if m and strip_accents(m.group(2)).lower() in DEFAULTS:
-                # déclaration simple (TDO) : mémoriser le type pour lire()
-                typ = strip_accents(m.group(2)).lower()
-                for n in m.group(1).split(","):
-                    self.types[strip_accents(n).lower().strip()] = typ
+            m = re.match(r"(?i)^([\wÀ-ſ]+)\s*=\s*(tableau\s+de\s+.+)$", line.strip())
+            if m:
+                self.newtypes[strip_accents(m.group(1)).lower()] = re.sub(
+                    r"\s+", " ", strip_accents(m.group(2)).lower().strip())
                 continue
             if norm in ("var", "objet", "objets", "constantes", "types"):
                 continue
@@ -372,8 +537,11 @@ class Transpiler:
 
         if self.stack:
             raise TranspileError(f"fin de fichier : bloc « {self.stack[-1]} » non fermé")
+        # les sous-programmes sont définis avant le programme principal,
+        # quel que soit leur ordre dans le fichier .algo
+        lines = [RUNTIME] + self.defs + [""] + self.out
         return "\n".join(self._unshelve_strings(l) if "\x00" in l else l
-                         for l in self.out) + "\n"
+                         for l in lines) + "\n"
 
     def _cut(self, line: str, prefix: str, suffix: str) -> str:
         s = line.strip()
@@ -383,31 +551,54 @@ class Transpiler:
 
     def _statement(self, line: str, num: int):
         norm = strip_accents(line).lower().strip()
-        # lire(a, b, ...)
-        m = re.match(r"lire\s*\((.+)\)\s*$", norm)
+        # retourner expr (dans une fonction)
+        m = re.match(r"(retourner|retourne|renvoyer)\s+(.+)$", norm)
+        if m:
+            val = re.sub(r"(?i)^(retourner|retourne|renvoyer)\s+", "", line.strip())
+            self.emit(f"return {self.expr(val, cond=False)}")
+            return
+        # lire(a, b, ...) / saisir(...)
+        m = re.match(r"(?:lire|saisir)\s*\((.+)\)\s*$", norm)
         if m:
             readers = {"entier": "_lire_entier", "reel": "_lire_reel",
-                       "chaine": "_lire_chaine", "caractere": "_lire_chaine",
+                       "chaine": "_lire_chaine", "caractere": "_lire_caractere",
                        "booleen": "_lire_booleen"}
-            inner = re.match(r"(?i)lire\s*\((.+)\)\s*$", line.strip()).group(1)
-            for v in inner.split(","):
+            inner = re.match(r"(?i)(?:lire|saisir)\s*\((.+)\)\s*$",
+                             line.strip()).group(1)
+            for v in self._split_args(inner):
                 # type déclaré dans le TDO → lecture typée (t[i] → type de t)
                 base = strip_accents(v).lower().strip().split("[")[0].strip()
                 fn = readers.get(self.types.get(base), "_lire")
                 self.emit(f"{self.expr(v, cond=False)} = {fn}()")
             return
-        # écrire(...) / écrire_nl(...)
-        m = re.match(r"(ecrire_nl|ecrire)\s*\((.*)\)\s*$", norm)
+        # écrire(...) / écrire_nl(...) / afficher(...)
+        m = re.match(r"(ecrire_nl|ecrire|afficher)\s*\((.*)\)\s*$", norm)
         if m:
             fn = "_ecrire_nl" if m.group(1) == "ecrire_nl" else "_ecrire"
             inner = re.match(r"(?i)[\wÀ-ſ_]+\s*\((.*)\)\s*$", line.strip()).group(1)
             self.emit(f"{fn}({self.expr(inner, cond=False)})")
             return
-        # affectation x ← expr  (ou instruction quelconque)
+        # affectation x ← expr
         if "←" in line or "<-" in line:
             lhs, rhs = re.split(r"←|<-", line, maxsplit=1)
             self.emit(f"{self.expr(lhs, cond=False)} = {self.expr(rhs, cond=False)}")
             return
+        # appel de procédure : les arguments @ sont réaffectés au retour
+        m = re.match(r"([\wÀ-ſ]+)\s*\((.*)\)\s*$", line.strip())
+        if m:
+            info = self.procs.get(strip_accents(m.group(1)).lower())
+            if info and info["kind"] == "procedure" and any(info["refs"]):
+                args = self._split_args(m.group(2))
+                if len(args) != len(info["refs"]):
+                    raise TranspileError(
+                        f"ligne {num}: {m.group(1)} attend {len(info['refs'])} "
+                        f"paramètre(s), {len(args)} donné(s)")
+                lhs = [self.expr(a, cond=False)
+                       for a, r in zip(args, info["refs"]) if r]
+                call_args = ", ".join(self.expr(a, cond=False) for a in args)
+                name = strip_accents(m.group(1)).lower()
+                self.emit(f"{', '.join(lhs)} = {name}({call_args})")
+                return
         self.emit(self.expr(line, cond=False))
 
 
@@ -429,7 +620,7 @@ def main():
         out_file = args[args.index("--out") + 1]
 
     try:
-        with open(path, encoding="utf-8") as f:
+        with open(path, encoding="utf-8-sig") as f:
             source = f.read()
     except FileNotFoundError:
         print(f"Erreur : fichier introuvable : {path}")
