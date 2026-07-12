@@ -62,6 +62,51 @@ function activate(context) {
     );
 
     // ------------------------------------------------------------------
+    // Traduire (seulement) le .algo en Python, sans l'exécuter
+    // ------------------------------------------------------------------
+    context.subscriptions.push(
+        vscode.commands.registerCommand('algo.translate', async () => {
+            const editor = vscode.window.activeTextEditor;
+            if (!editor || editor.document.languageId !== 'algo') {
+                vscode.window.showErrorMessage('Ouvrez un fichier .algo pour le traduire.');
+                return;
+            }
+            await editor.document.save();
+
+            const python = await trouverPython();
+            if (!python) {
+                const choix = await vscode.window.showErrorMessage(
+                    'Python est introuvable : il est nécessaire pour la traduction. '
+                    + 'Installez-le, puis redémarrez VSCode.',
+                    'Télécharger Python');
+                if (choix === 'Télécharger Python') {
+                    vscode.env.openExternal(vscode.Uri.parse('https://www.python.org/downloads/'));
+                }
+                return;
+            }
+
+            const traducteur = context.asAbsolutePath(path.join('tools', 'traduire.py'));
+            const source = editor.document.fileName;
+            const sortie = source.replace(/\.alg[o]?$/i, '') + '.py';
+            execFile(python, [traducteur, source, sortie], { timeout: 15000 },
+                async (err, stdout, stderr) => {
+                    const message = ((stdout || '') + (stderr || '')).trim();
+                    if (err) {
+                        vscode.window.showErrorMessage(
+                            'Échec de la traduction : ' + (message || err.message));
+                        return;
+                    }
+                    // ouvrir le .py généré à côté de l'algorithme
+                    const doc = await vscode.workspace.openTextDocument(sortie);
+                    await vscode.window.showTextDocument(doc, vscode.ViewColumn.Beside);
+                    vscode.window.showInformationMessage(
+                        'Traduit en Python (non exécuté) : '
+                        + sortie.split(/[\\/]/).pop());
+                });
+        })
+    );
+
+    // ------------------------------------------------------------------
     // Éditeur de tableaux de déclaration dans un onglet
     // ------------------------------------------------------------------
     context.subscriptions.push(

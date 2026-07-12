@@ -2,7 +2,7 @@
     "name": "algorithme-tn",
     "displayName": "Algorithme-tn",
     "description": "Pseudocode conforme aux programmes du lycée en Tunisie",
-    "version": "0.0.6",
+    "version": "0.0.8",
     "icon": "images/icon.png",
     "engines": {
         "vscode": "^1.38.0"
@@ -24,6 +24,12 @@
                 "icon": "$(play)"
             },
             {
+                "command": "algo.translate",
+                "title": "Traduire en Python (sans exécuter)",
+                "category": "Algorithme",
+                "icon": "$(file-code)"
+            },
+            {
                 "command": "algo.editerTables",
                 "title": "Éditer les tableaux de déclaration (TDO)",
                 "category": "Algorithme",
@@ -43,9 +49,14 @@
                     "group": "navigation@1"
                 },
                 {
-                    "command": "algo.editerTables",
+                    "command": "algo.translate",
                     "when": "editorLangId == algo",
                     "group": "navigation@2"
+                },
+                {
+                    "command": "algo.editerTables",
+                    "when": "editorLangId == algo",
+                    "group": "navigation@3"
                 }
             ],
             "editor/context": [
@@ -55,21 +66,36 @@
                     "group": "algo@1"
                 },
                 {
-                    "command": "algo.editerTables",
+                    "command": "algo.translate",
                     "when": "editorLangId == algo",
                     "group": "algo@2"
                 },
                 {
-                    "command": "algo.ajouterObjet",
+                    "command": "algo.editerTables",
                     "when": "editorLangId == algo",
                     "group": "algo@3"
+                },
+                {
+                    "command": "algo.ajouterObjet",
+                    "when": "editorLangId == algo",
+                    "group": "algo@4"
                 }
             ]
         },
         "keybindings": [
             {
                 "command": "algo.run",
+                "key": "f5",
+                "when": "editorLangId == algo && !inDebugMode"
+            },
+            {
+                "command": "algo.run",
                 "key": "ctrl+f5",
+                "when": "editorLangId == algo"
+            },
+            {
+                "command": "algo.translate",
+                "key": "ctrl+alt+p",
                 "when": "editorLangId == algo"
             },
             {

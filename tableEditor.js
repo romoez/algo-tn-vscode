@@ -163,136 +163,201 @@ function html(webview) {
 <meta http-equiv="Content-Security-Policy"
       content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline';">
 <style>
+  :root { --gap: 8px; }
   body { font-family: var(--vscode-font-family); color: var(--vscode-foreground);
-         padding: 0 16px 60px; }
-  h2 { font-weight: 600; }
-  h3 { margin: 18px 0 6px; font-weight: 600; opacity: .9; }
-  table { border-collapse: collapse; width: 100%; max-width: 640px; }
-  th, td { border: 1px solid var(--vscode-panel-border); padding: 4px 6px; text-align: left; }
-  th { background: var(--vscode-editor-inactiveSelectionBackground); }
-  input, select { width: 100%; box-sizing: border-box; background: var(--vscode-input-background);
-         color: var(--vscode-input-foreground); border: 1px solid transparent; padding: 4px; }
-  input:focus, select:focus { border-color: var(--vscode-focusBorder); outline: none; }
-  button { background: var(--vscode-button-background); color: var(--vscode-button-foreground);
-         border: none; padding: 5px 12px; margin: 6px 6px 6px 0; cursor: pointer; border-radius: 2px; }
+         padding: 0 16px 72px; font-size: 13px; }
+  h2 { font-weight: 600; margin: 14px 0 4px; }
+  .intro { opacity: .8; margin: 0 0 12px; }
+  .carte { border: 1px solid var(--vscode-panel-border); border-radius: 6px;
+         margin: 14px 0; overflow: hidden; }
+  .entete { display: flex; align-items: center; gap: var(--gap);
+         padding: 8px 12px; background: var(--vscode-editor-inactiveSelectionBackground); }
+  .entete .titre { font-weight: 600; }
+  .entete .ctx { font-family: var(--vscode-editor-font-family); opacity: .65;
+         font-weight: 400; font-size: 12px; }
+  .entete .pousse { margin-left: auto; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border-top: 1px solid var(--vscode-panel-border); padding: 0; text-align: left; }
+  th { padding: 5px 10px; font-weight: 600; opacity: .8;
+       background: var(--vscode-editor-background); }
+  th.actions, td.actions { width: 96px; text-align: center; white-space: nowrap; }
+  td .cell { display: flex; }
+  input, select { width: 100%; box-sizing: border-box; background: transparent;
+         color: var(--vscode-input-foreground); border: 1px solid transparent;
+         padding: 6px 10px; font-size: 13px; font-family: inherit; }
+  input:hover, select:hover { background: var(--vscode-input-background); }
+  input:focus, select:focus { background: var(--vscode-input-background);
+         border-color: var(--vscode-focusBorder); outline: none; }
+  tr.pending { background: color-mix(in srgb,
+         var(--vscode-inputValidation-warningBackground, #6b5300) 22%, transparent); }
+  tr.pending td:first-child::before { content: "détecté"; position: absolute;
+         font-size: 9px; opacity: .6; margin: -2px 0 0 2px; }
+  .ico { background: transparent; border: none; cursor: pointer; padding: 4px 6px;
+         color: var(--vscode-foreground); opacity: .55; font-size: 13px; border-radius: 4px; }
+  .ico:hover { opacity: 1; background: var(--vscode-toolbar-hoverBackground); }
+  .ico.sup:hover { color: var(--vscode-errorForeground); }
+  .pied { padding: 8px 12px; }
+  button.bouton { background: var(--vscode-button-background);
+         color: var(--vscode-button-foreground); border: none; padding: 6px 14px;
+         margin: 0 6px 0 0; cursor: pointer; border-radius: 4px; font-size: 13px; }
   button.discret { background: var(--vscode-button-secondaryBackground);
          color: var(--vscode-button-secondaryForeground); }
-  .sup { background: transparent; color: var(--vscode-errorForeground); font-size: 15px;
-         padding: 0 6px; margin: 0; }
-  .badge { display: inline-flex; align-items: center; gap: 6px; margin: 4px 8px 4px 0;
-         padding: 4px 8px; border: 1px dashed var(--vscode-panel-border); border-radius: 4px; }
-  .badge select { width: auto; }
   #barre { position: fixed; bottom: 0; left: 0; right: 0; padding: 10px 16px;
-         background: var(--vscode-editor-background);
-         border-top: 1px solid var(--vscode-panel-border); }
-  .ctx { font-family: var(--vscode-editor-font-family); opacity: .7; font-weight: 400; }
+         background: var(--vscode-editor-background); display: flex; align-items: center;
+         gap: 8px; border-top: 1px solid var(--vscode-panel-border); }
+  #barre .info { margin-left: auto; opacity: .7; font-size: 12px; }
 </style>
 </head>
 <body>
-<h2>Tableaux de déclaration</h2>
-<p>Modifiez les objets ci-dessous puis cliquez sur <b>Appliquer</b> :
-les tableaux du fichier <code>.algo</code> sont redessinés automatiquement.</p>
-<div id="nondeclares"></div>
+<h2>Éditeur de tableaux de déclaration</h2>
+<p class="intro">Modifiez les objets comme dans un tableur. Les objets
+<b>détectés</b> dans le code mais non déclarés sont ajoutés automatiquement
+(lignes surlignées) — ajustez leur type puis <b>Appliquer</b>.</p>
 <div id="tables"></div>
-<button id="nouveau" class="discret">＋ Nouveau tableau (fin du fichier)</button>
+<button id="nouveau" class="bouton discret">＋ Nouveau tableau</button>
 <div id="barre">
-  <button id="appliquer">✔ Appliquer dans le fichier</button>
-  <button id="recharger" class="discret">↺ Recharger depuis le fichier</button>
+  <button id="appliquer" class="bouton">✔ Appliquer dans le fichier</button>
+  <button id="recharger" class="bouton discret">↺ Recharger</button>
+  <button id="detecter" class="bouton discret">🔎 Re-détecter les objets</button>
+  <span class="info" id="compteur"></span>
 </div>
 <datalist id="types">${TYPES.map(t => `<option value="${t}">`).join('')}</datalist>
 <script>
 const vscode = acquireVsCodeApi();
+const TYPES = ${JSON.stringify(TYPES)};
 let donnees = { tables: [], nonDeclares: [] };
+
+// Fusionne les objets détectés (non déclarés) comme lignes "pending"
+// dans le premier tableau, pour qu'ils soient visibles et éditables.
+function injecterDetectes() {
+  if (!donnees.tables.length) { return; }
+  const cible = donnees.tables[0];
+  for (const v of donnees.nonDeclares || []) {
+    const existe = donnees.tables.some(t =>
+      t.rangs.some(r => r.objet.split(',').some(n =>
+        n.trim().toLowerCase() === v.nom.toLowerCase())));
+    if (!existe) {
+      cible.rangs.push({ objet: v.nom, type: v.nature, pending: true });
+    }
+  }
+  donnees.nonDeclares = [];
+}
+
+function icone(txt, titre, cls) {
+  const b = document.createElement('button');
+  b.className = 'ico' + (cls ? ' ' + cls : '');
+  b.textContent = txt;
+  b.title = titre;
+  return b;
+}
+
+function champ(valeur, liste, onChange) {
+  const i = document.createElement('input');
+  i.value = valeur;
+  if (liste) { i.setAttribute('list', liste); }
+  i.oninput = () => onChange(i.value);
+  return i;
+}
 
 function rendre() {
   const zone = document.getElementById('tables');
   zone.innerHTML = '';
+  let nbPending = 0;
+
   donnees.tables.forEach((t, ti) => {
-    const h = document.createElement('h3');
-    h.innerHTML = 'Tableau ' + (ti + 1) +
-      ' — <span class="ctx">' + (t.ctx || '') + '</span>';
-    zone.appendChild(h);
+    const carte = document.createElement('div');
+    carte.className = 'carte';
+
+    const entete = document.createElement('div');
+    entete.className = 'entete';
+    const titre = document.createElement('span');
+    titre.className = 'titre';
+    titre.textContent = 'Tableau ' + (ti + 1);
+    const ctx = document.createElement('span');
+    ctx.className = 'ctx';
+    ctx.textContent = t.ctx || '';
+    const pousse = document.createElement('span');
+    pousse.className = 'pousse';
+    const suppr = icone('🗑 tableau', 'Supprimer ce tableau', 'sup');
+    suppr.onclick = () => { donnees.tables.splice(ti, 1); rendre(); };
+    pousse.appendChild(suppr);
+    entete.append(titre, ctx, pousse);
+    carte.appendChild(entete);
+
     const tab = document.createElement('table');
-    tab.innerHTML = '<tr><th>Objet</th><th>Nature / Type</th><th></th></tr>';
+    const thead = document.createElement('tr');
+    thead.innerHTML = '<th>Objet</th><th>Nature / Type</th>'
+      + '<th class="actions">Actions</th>';
+    tab.appendChild(thead);
+
     t.rangs.forEach((r, ri) => {
+      if (r.pending) { nbPending++; }
       const tr = document.createElement('tr');
+      if (r.pending) { tr.className = 'pending'; }
+
       const c1 = document.createElement('td');
-      const i1 = document.createElement('input');
-      i1.value = r.objet;
-      i1.oninput = () => { r.objet = i1.value; };
-      c1.appendChild(i1);
+      c1.style.position = 'relative';
+      c1.appendChild(champ(r.objet, null, v => { r.objet = v; }));
+
       const c2 = document.createElement('td');
-      const i2 = document.createElement('input');
-      i2.value = r.type;
-      i2.setAttribute('list', 'types');
-      i2.oninput = () => { r.type = i2.value; };
-      c2.appendChild(i2);
+      c2.appendChild(champ(r.type, 'types', v => { r.type = v; }));
+
       const c3 = document.createElement('td');
-      const sup = document.createElement('button');
-      sup.className = 'sup';
-      sup.textContent = '✕';
-      sup.title = 'Supprimer cette ligne';
+      c3.className = 'actions';
+      const haut = icone('↑', 'Monter');
+      haut.onclick = () => { if (ri > 0) {
+        [t.rangs[ri - 1], t.rangs[ri]] = [t.rangs[ri], t.rangs[ri - 1]]; rendre(); } };
+      const bas = icone('↓', 'Descendre');
+      bas.onclick = () => { if (ri < t.rangs.length - 1) {
+        [t.rangs[ri + 1], t.rangs[ri]] = [t.rangs[ri], t.rangs[ri + 1]]; rendre(); } };
+      const acc = icone('✓', 'Confirmer (garder cette ligne)');
+      acc.style.visibility = r.pending ? 'visible' : 'hidden';
+      acc.onclick = () => { delete r.pending; rendre(); };
+      const sup = icone('✕', 'Supprimer la ligne', 'sup');
       sup.onclick = () => { t.rangs.splice(ri, 1); rendre(); };
-      c3.appendChild(sup);
+      c3.append(haut, bas, acc, sup);
+
       tr.append(c1, c2, c3);
       tab.appendChild(tr);
     });
-    zone.appendChild(tab);
+    carte.appendChild(tab);
+
+    const pied = document.createElement('div');
+    pied.className = 'pied';
     const plus = document.createElement('button');
-    plus.className = 'discret';
+    plus.className = 'bouton discret';
     plus.textContent = '＋ Ajouter un objet';
     plus.onclick = () => { t.rangs.push({ objet: '', type: 'entier' }); rendre(); };
-    zone.appendChild(plus);
+    pied.appendChild(plus);
+    carte.appendChild(pied);
+
+    zone.appendChild(carte);
   });
 
-  const nd = document.getElementById('nondeclares');
-  nd.innerHTML = '';
-  if (donnees.nonDeclares.length && donnees.tables.length) {
-    const h = document.createElement('h3');
-    h.textContent = 'Objets utilisés dans le code mais absents des tableaux :';
-    nd.appendChild(h);
-    donnees.nonDeclares.forEach((v, vi) => {
-      const b = document.createElement('span');
-      b.className = 'badge';
-      const nom = document.createElement('b');
-      nom.textContent = v.nom;
-      const sel = document.createElement('select');
-      ${JSON.stringify(TYPES)}.forEach(t => {
-        const o = document.createElement('option');
-        o.value = o.textContent = t;
-        if (t === v.nature) { o.selected = true; }
-        sel.appendChild(o);
-      });
-      const ou = document.createElement('select');
-      donnees.tables.forEach((t, ti) => {
-        const o = document.createElement('option');
-        o.value = ti;
-        o.textContent = 'Tableau ' + (ti + 1);
-        ou.appendChild(o);
-      });
-      const add = document.createElement('button');
-      add.textContent = '＋ Déclarer';
-      add.onclick = () => {
-        donnees.tables[+ou.value].rangs.push({ objet: v.nom, type: sel.value });
-        donnees.nonDeclares.splice(vi, 1);
-        rendre();
-      };
-      b.append(nom, sel, ou, add);
-      nd.appendChild(b);
-    });
-  }
+  document.getElementById('compteur').textContent = nbPending
+    ? nbPending + ' objet(s) détecté(s) à confirmer' : '';
 }
 
-document.getElementById('appliquer').onclick = () =>
+document.getElementById('appliquer').onclick = () => {
+  // on retire le marqueur pending : tout ce qui reste est déclaré
+  donnees.tables.forEach(t => t.rangs.forEach(r => delete r.pending));
   vscode.postMessage({ type: 'appliquer', tables: donnees.tables });
+};
 document.getElementById('recharger').onclick = () =>
   vscode.postMessage({ type: 'recharger' });
+document.getElementById('detecter').onclick = () =>
+  vscode.postMessage({ type: 'recharger' });
 document.getElementById('nouveau').onclick = () => {
-  donnees.tables.push({ debut: -1, fin: -1, rangs: [{ objet: '', type: 'entier' }], ctx: 'nouveau' });
+  donnees.tables.push({ debut: -1, fin: -1,
+    rangs: [{ objet: '', type: 'entier' }], ctx: 'nouveau' });
   rendre();
 };
 
-window.addEventListener('message', e => { donnees = e.data; rendre(); });
+window.addEventListener('message', e => {
+  donnees = e.data;
+  injecterDetectes();
+  rendre();
+});
 </script>
 </body>
 </html>`;

@@ -10,6 +10,21 @@ python tools/algotn.py exemple.algo --out f.py # sauvegarde le Python généré
 python tools/algotn.py exemple.algo --no-run   # transpile sans exécuter
 ```
 
+## Traduire seulement (sans exécuter)
+
+`traduire.py` utilise le **même moteur** mais n'exécute jamais le résultat :
+il écrit un fichier `.py` que vous pouvez lire, corriger ou lancer vous-même.
+
+```console
+python tools/traduire.py exemple.algo             # crée exemple.py à côté
+python tools/traduire.py exemple.algo sortie.py   # nom de sortie choisi
+python tools/traduire.py exemple.algo --show      # affiche aussi le code
+```
+
+Dans VSCode, la commande **« Traduire en Python (sans exécuter) »**
+(`Ctrl+Alt+P`, ou l'icône fichier-code) fait la même chose et ouvre le `.py`
+à côté de l'algorithme.
+
 ## Ce qui est supporté
 
 - `écrire`, `écrire_nl`, `lire` (alias `afficher`, `saisir`) — la lecture est
