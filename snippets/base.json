@@ -1,8 +1,21 @@
 {
     "algorithme": {
         "prefix": ["algorithme"],
-        "body": ["algorithme ${1:nom}", "début", "\t$0", "fin"],
-        "description": "Structure de base d'un algorithme : entête, début et fin."
+        "body": [
+            "algorithme ${1:nom}",
+            "début",
+            "\t$0",
+            "fin",
+            "",
+            "// TDOG : Tableau de Déclaration des Objets Globaux",
+            "┌────────────────────────────────────┬──────────────────────────┐",
+            "│               Objet                │      Nature / Type       │",
+            "├────────────────────────────────────┼──────────────────────────┤",
+            "│ ${2:x}                                  │ ${3|entier       ,chaîne       ,réel         ,booléen      ,caractère    ,fonction     ,procédure    ,fichier texte|}            │",
+            "└────────────────────────────────────┴──────────────────────────┘",
+            ""
+        ],
+        "description": "Structure de base d'un algorithme : entête, début, fin et TDOG (tableau de déclaration des objets globaux)."
     },
     "fonction (définition)": {
         "prefix": ["fonction", "fn"],
@@ -10,19 +23,64 @@
             "fonction ${1:nom}(${2:paramètres_formels}) : ${3|entier,chaîne,réel,booléen,caractère|}",
             "début",
             "\t$0",
-            "fin"
+            "\tretourner ${4:résultat}",
+            "fin",
+            "",
+            "// TDOL : Tableau de Déclaration des Objets Locaux de ${1:nom}",
+            "// (les paramètres de l'en-tête n'y sont pas répétés)",
+            "┌────────────────────────────────────┬──────────────────────────┐",
+            "│               Objet                │      Nature / Type       │",
+            "├────────────────────────────────────┼──────────────────────────┤",
+            "│ ${5:x}                                  │ ${6|entier       ,chaîne       ,réel         ,booléen      ,caractère    |}            │",
+            "└────────────────────────────────────┴──────────────────────────┘",
+            ""
         ],
-        "description": "Définit une fonction : sous-programme qui calcule et renvoie une valeur."
+        "description": "Définit une fonction (renvoie une valeur de type simple) avec son TDOL."
     },
     "procédure (définition)": {
         "prefix": ["procédure", "proc"],
         "body": [
-            "procédure ${1:nom}(${2:paramètres_formels})",
+            "procédure ${1:nom}(${2:@paramètre : entier})",
             "début",
             "\t$0",
-            "fin"
+            "fin",
+            "",
+            "// TDOL : Tableau de Déclaration des Objets Locaux de ${1:nom}",
+            "// (@x = passage par variable : la variable passée est modifiée)",
+            "┌────────────────────────────────────┬──────────────────────────┐",
+            "│               Objet                │      Nature / Type       │",
+            "├────────────────────────────────────┼──────────────────────────┤",
+            "│ ${3:x}                                  │ ${4|entier       ,chaîne       ,réel         ,booléen      ,caractère    |}            │",
+            "└────────────────────────────────────┴──────────────────────────┘",
+            ""
         ],
-        "description": "Définit une procédure : sous-programme qui exécute des actions sans renvoyer de valeur."
+        "description": "Définit une procédure (passage par valeur, ou par variable avec @) avec son TDOL."
+    },
+    "tdog: objets globaux": {
+        "prefix": ["tdog"],
+        "body": [
+            "// TDOG : Tableau de Déclaration des Objets Globaux",
+            "┌────────────────────────────────────┬──────────────────────────┐",
+            "│               Objet                │      Nature / Type       │",
+            "├────────────────────────────────────┼──────────────────────────┤",
+            "│ ${1:x}                                  │ ${2|entier       ,chaîne       ,réel         ,booléen      ,caractère    ,fonction     ,procédure    ,fichier texte|}            │",
+            "└────────────────────────────────────┴──────────────────────────┘",
+            ""
+        ],
+        "description": "TDOG : tableau de déclaration des objets globaux du programme principal"
+    },
+    "tdol: objets locaux": {
+        "prefix": ["tdol"],
+        "body": [
+            "// TDOL : Tableau de Déclaration des Objets Locaux de ${1:nom_sous_programme}",
+            "┌────────────────────────────────────┬──────────────────────────┐",
+            "│               Objet                │      Nature / Type       │",
+            "├────────────────────────────────────┼──────────────────────────┤",
+            "│ ${2:x}                                  │ ${3|entier       ,chaîne       ,réel         ,booléen      ,caractère    |}            │",
+            "└────────────────────────────────────┴──────────────────────────┘",
+            ""
+        ],
+        "description": "TDOL : tableau de déclaration des objets locaux d'une fonction ou d'une procédure"
     },
     "tdo: 1 ligne": {
         "prefix": "tdo-1",

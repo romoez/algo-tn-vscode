@@ -1,0 +1,20 @@
+Algorithme classique
+Debut
+    Ecrire("Donner un entier : ")
+    Lire(x)
+    Si x > 10 Alors
+        Ecrire("Grand")
+    Sinon Si x = 10 Alors
+        Ecrire("Pile dix")
+    Sinon
+        Ecrire("Petit")
+    FinSi
+    Pour i De 1 A 3 Faire
+        Ecrire("i = ", i)
+    FinPour
+    Selon x
+        1, 2 : Ecrire("un ou deux")
+        10 : Ecrire("dix")
+        Autres : Ecrire("autre valeur")
+    Fin_Selon
+Fin
