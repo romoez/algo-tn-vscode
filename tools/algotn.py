@@ -677,7 +677,33 @@ def main():
               "fonction, procédure...) et la structure de la ligne.")
         sys.exit(1)
     if run:
-        exec(code, {"__name__": "__main__"})
+        try:
+            exec(code, {"__name__": "__main__"})
+        except ZeroDivisionError:
+            print("\nErreur d'exécution : division par zéro "
+                  "(un « div » ou « mod » par 0, ou une division / par 0).")
+            sys.exit(1)
+        except ValueError as e:
+            if "math domain error" in str(e):
+                print("\nErreur d'exécution : opération mathématique impossible — "
+                      "par exemple racine_carrée d'un nombre négatif, "
+                      "ou logarithme d'un nombre ≤ 0.")
+            else:
+                print(f"\nErreur d'exécution : valeur invalide — {e}")
+            sys.exit(1)
+        except IndexError:
+            print("\nErreur d'exécution : indice de tableau hors limites "
+                  "(les tableaux vont de 1 à leur taille).")
+            sys.exit(1)
+        except RecursionError:
+            print("\nErreur d'exécution : récursion infinie — "
+                  "une fonction s'appelle elle-même sans condition d'arrêt.")
+            sys.exit(1)
+        except KeyboardInterrupt:
+            sys.exit(1)
+        except Exception as e:
+            print(f"\nErreur d'exécution : {type(e).__name__} — {e}")
+            sys.exit(1)
 
 
 if __name__ == "__main__":
